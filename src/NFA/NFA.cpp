@@ -2,21 +2,16 @@
 
 using namespace std;
 
+NFA::NFA()
+{
+	start = end = NULL;
+}
+
 NFA::NFA(char ch)
 {
 	start = new State(false);
 	end = new State(true);
 	start->addTransfer(end, ch);
-}
-
-State* NFA::getStartState() const
-{
-	return start;
-}
-
-State* NFA::getEndState() const
-{
-	return end;
 }
 
 std::string NFA::toString() const
@@ -32,10 +27,21 @@ std::string NFA::toString() const
 	return s;
 }
 
+void NFA::clear()
+{
+	if (start != NULL && end != NULL)
+	{
+		set<State*> book;
+		clear_dfs(start, book);
+		start = end = NULL;
+	}
+}
+
 void NFA::toString_dfs(State* cur, std::set<State*>& book, std::string& s) const
 {
 	s += cur->toString();
 	s += "\n";
+	book.insert(cur);
 
 	vector<State*> next = cur->getNextStates();
 	for (int i = 0; i < (int)next.size(); ++i)
@@ -45,4 +51,18 @@ void NFA::toString_dfs(State* cur, std::set<State*>& book, std::string& s) const
 			toString_dfs(next[i], book, s);
 		}
 	}
+}
+
+void NFA::clear_dfs(State* cur, std::set<State*>& book)
+{
+	book.insert(cur);
+	vector<State*> next = cur->getNextStates();
+	for (int i = 0; i < (int)next.size(); ++i)
+	{
+		if (book.count(next[i]) == 0)
+		{
+			clear_dfs(next[i], book);
+		}
+	}
+	delete cur;
 }

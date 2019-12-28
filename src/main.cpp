@@ -13,9 +13,10 @@ int main()
 
 	//while (1)
 	{
-		NFA n1('a');
-		cout << n1.toString() << endl;
-		
+		RegExprParser parser("xyzw|(a*b)|(c.d)*");
+		parser.parse();
+		parser.toNFA();
+		cout << parser.getNFA().toString() << endl;
 	}
 
 	_CrtDumpMemoryLeaks();

@@ -32,6 +32,11 @@ std::string RegExpr::toString() const
 	}
 }
 
+NFA RegExpr::getNFA() const
+{
+	return p->getNFA();
+}
+
 Char::Char(char ch) : ch(ch)
 {
 
@@ -44,9 +49,19 @@ std::string Char::toString() const
 	return s;
 }
 
+NFA Char::getNFA() const
+{
+	return NFA(ch);
+}
+
 std::string AnyChar::toString() const
 {
 	return ".";
+}
+
+NFA AnyChar::getNFA() const
+{
+	return NFA('.');
 }
 
 Concat::Concat(const RegExpr& lhs, const RegExpr& rhs) : lhs(lhs), rhs(rhs)
@@ -64,9 +79,19 @@ std::string Concat::toString() const
 	return s;
 }
 
+NFA Concat::getNFA() const
+{
+	NFA left = lhs.getNFA();
+	NFA right = rhs.getNFA();
+	*(left.end) = *(right.start);
+	delete right.start;
+	left.end = right.end;
+	return left;
+}
+
 Choose::Choose(const RegExpr& lhs, const RegExpr& rhs) : lhs(lhs), rhs(rhs)
 {
-
+	
 }
 
 std::string Choose::toString() const
@@ -77,6 +102,23 @@ std::string Choose::toString() const
 	s += rhs.toString();
 	s += ")";
 	return s;
+}
+
+NFA Choose::getNFA() const
+{
+	NFA left = lhs.getNFA();
+	NFA right = rhs.getNFA();
+	State* head = new State(false);
+	State* tail = new State(true);
+	head->addTransfer(left.start, ' ');
+	head->addTransfer(right.start, ' ');
+	left.end->addTransfer(tail, ' ');
+	right.end->addTransfer(tail, ' ');
+	left.end->setAccepted(false);
+	right.end->setAccepted(false);
+	left.start = head;
+	left.end = tail;
+	return left;
 }
 
 StarClosure::StarClosure(const RegExpr& expr) : expr(expr)
@@ -92,6 +134,21 @@ std::string StarClosure::toString() const
 	return s;
 }
 
+NFA StarClosure::getNFA() const
+{
+	NFA nfa = expr.getNFA();
+	State* head = new State(false);
+	State* tail = new State(true);
+	head->addTransfer(nfa.start, ' ');
+	head->addTransfer(tail, ' ');
+	nfa.end->addTransfer(tail, ' ');
+	nfa.end->addTransfer(nfa.start, ' ');
+	nfa.end->setAccepted(false);
+	nfa.start = head;
+	nfa.end = tail;
+	return nfa;
+}
+
 AddClosure::AddClosure(const RegExpr& expr) : expr(expr)
 {
 
@@ -103,4 +160,18 @@ std::string AddClosure::toString() const
 	s += expr.toString();
 	s += ")";
 	return s;
+}
+
+NFA AddClosure::getNFA() const
+{
+	NFA nfa = expr.getNFA();
+	State* head = new State(false);
+	State* tail = new State(true);
+	head->addTransfer(nfa.start, ' ');
+	nfa.end->addTransfer(tail, ' ');
+	nfa.end->addTransfer(nfa.start, ' ');
+	nfa.end->setAccepted(false);
+	nfa.start = head;
+	nfa.end = tail;
+	return nfa;
 }

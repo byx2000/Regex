@@ -17,14 +17,19 @@ class RegExprParser
 {
 public:
 	RegExprParser(const std::string& input = "");
+	~RegExprParser();
+
 	void setInput(const std::string& input);
 	void parse();
+	void toNFA();
 	RegExpr getRegExpr() const;
+	NFA getNFA() const;
 
 private:
 	std::string input;
-	RegExpr expr;
 	int index;
+	RegExpr expr;
+	NFA nfa;
 
 	char next();
 	char peek();

@@ -19,6 +19,11 @@ RegExprParser::RegExprParser(const std::string& input) : input(input), index(0)
 
 }
 
+RegExprParser::~RegExprParser()
+{
+	nfa.clear();
+}
+
 void RegExprParser::setInput(const std::string& input)
 {
 	this->input = input;
@@ -28,11 +33,22 @@ void RegExprParser::parse()
 {
 	index = 0;
 	expr = parseExpr();
+	nfa.clear();
+}
+
+void RegExprParser::toNFA()
+{
+	nfa = expr.getNFA();
 }
 
 RegExpr RegExprParser::getRegExpr() const
 {
 	return expr;
+}
+
+NFA RegExprParser::getNFA() const
+{
+	return nfa;
 }
 
 char RegExprParser::next()
@@ -110,7 +126,7 @@ RegExpr RegExprParser::parseFactor()
 RegExpr RegExprParser::parseTerm()
 {
 	char ch = next();
-	if (ch >= 'a' && ch < 'z')
+	if (ch >= 'a' && ch <= 'z')
 	{
 		return new Char(ch);
 	}

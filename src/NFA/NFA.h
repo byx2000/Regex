@@ -5,13 +5,14 @@
 class NFA
 {
 public:
-	NFA(char ch);
-	State* getStartState() const;
-	State* getEndState() const;
-	std::string toString() const;
-
-private:
 	State* start, * end;
 
+	NFA();
+	NFA(char ch);
+	std::string toString() const;
+	void clear();
+	
+private:
 	void toString_dfs(State* cur, std::set<State*>& book, std::string& s) const;
+	void clear_dfs(State* cur, std::set<State*>& book);
 };
