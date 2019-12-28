@@ -25,6 +25,12 @@
     <Filter Include="源文件\Test">
       <UniqueIdentifier>{51b5e4c8-d1dd-4597-8fcd-32f7c91118ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\NFA">
+      <UniqueIdentifier>{c3da0539-e9a0-404c-bc67-ac451832e04e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\NFA">
+      <UniqueIdentifier>{2329b5c4-070b-4e03-9e68-3525105e178d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -39,6 +45,12 @@
     <ClCompile Include="src\Test\Test.cpp">
       <Filter>源文件\Test</Filter>
     </ClCompile>
+    <ClCompile Include="src\NFA\State.cpp">
+      <Filter>源文件\NFA</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NFA\NFA.cpp">
+      <Filter>源文件\NFA</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Parser\RegExpr.h">
@@ -49,6 +61,12 @@
     </ClInclude>
     <ClInclude Include="src\Test\Test.h">
       <Filter>头文件\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NFA\State.h">
+      <Filter>头文件\NFA</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NFA\NFA.h">
+      <Filter>头文件\NFA</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

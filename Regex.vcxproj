@@ -20,11 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\NFA\NFA.cpp" />
+    <ClCompile Include="src\NFA\State.cpp" />
     <ClCompile Include="src\Parser\RegExpr.cpp" />
     <ClCompile Include="src\Parser\RegExprParser.cpp" />
     <ClCompile Include="src\Test\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\NFA\NFA.h" />
+    <ClInclude Include="src\NFA\State.h" />
     <ClInclude Include="src\Parser\RegExpr.h" />
     <ClInclude Include="src\Parser\RegExprParser.h" />
     <ClInclude Include="src\Test\Test.h" />
