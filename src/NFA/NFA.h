@@ -6,13 +6,12 @@ class NFA
 {
 public:
 	NFA(char ch);
+	State* getStartState() const;
+	State* getEndState() const;
 	std::string toString() const;
-	void concat(NFA& nfa);
-	void parallel(NFA& nfa);
-	void starClosure();
-	void addClosure();
-private:
-	State start, end;
 
-	void toString_dfs(const State& cur, std::set<State>& book, std::string& s) const;
+private:
+	State* start, * end;
+
+	void toString_dfs(State* cur, std::set<State*>& book, std::string& s) const;
 };
