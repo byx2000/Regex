@@ -25,24 +25,6 @@ void State::addTransfer(State* state, char _ch)
 	chs.push_back(_ch);
 }
 
-/*std::vector<State*> State::getNextStates() const
-{
-	return next;
-}
-
-std::vector<State*> State::getNextStates(char _ch) const
-{
-	vector<State*> res;
-	for (int i = 0; i < (int)chs.size(); ++i)
-	{
-		if (chs[i] == '.' || chs[i] == _ch)
-		{
-			res.push_back(next[i]);
-		}
-	}
-	return res;
-}*/
-
 int State::getTransferCount() const
 {
 	return next.size();

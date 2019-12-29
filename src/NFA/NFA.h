@@ -15,6 +15,8 @@ private:
 	char _ch;
 };
 
+class RegExpr;
+
 class NFA
 {
 public:

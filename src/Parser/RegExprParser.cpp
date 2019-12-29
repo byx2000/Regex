@@ -29,16 +29,17 @@ void RegExprParser::setInput(const std::string& input)
 	this->input = input;
 }
 
-void RegExprParser::parse()
+RegExprParser& RegExprParser::parse()
 {
 	index = 0;
 	expr = parseExpr();
 	nfa.clear();
+	return *this;
 }
 
 void RegExprParser::toNFA()
 {
-	nfa = expr.getNFA();
+	nfa = expr.getNFAGraph();
 }
 
 RegExpr RegExprParser::getRegExpr() const
@@ -46,7 +47,7 @@ RegExpr RegExprParser::getRegExpr() const
 	return expr;
 }
 
-NFAGraph RegExprParser::getNFA() const
+NFAGraph RegExprParser::getNFAGraph() const
 {
 	return nfa;
 }

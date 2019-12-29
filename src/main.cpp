@@ -5,6 +5,7 @@
 #include "NFA/State.h"
 #include "NFA/NFAGraph.h"
 #include "NFA/NFA.h"
+#include "Pattern/Pattern.h"
 
 using namespace std;
 
@@ -14,15 +15,9 @@ int main()
 
 	//while (1)
 	{
-		RegExprParser parser("xy(ab|c)*|zw");
-		parser.parse();
-		parser.toNFA();
-
-		NFAGraph ng = parser.getNFA();
-		cout << ng.toString() << endl;
-
-		NFA nfa = ng.toNFA();
-		cout << nfa.toString() << endl;
+		Pattern pat("abc");
+		pat.compile();
+		pat.compile();
 	}
 
 	_CrtDumpMemoryLeaks();

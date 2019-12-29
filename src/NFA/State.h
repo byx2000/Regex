@@ -11,8 +11,6 @@ public:
 	bool isAccepted() const;
 	void setAccepted(bool accepted);
 	void addTransfer(State* state, char _ch);
-	//std::vector<State*> getNextStates() const;
-	//std::vector<State*> getNextStates(char _ch) const;
 	int getTransferCount() const;
 	State* getTransferState(int index) const;
 	char getTransferChar(int index) const;

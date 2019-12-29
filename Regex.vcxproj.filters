@@ -31,6 +31,12 @@
     <Filter Include="源文件\NFA">
       <UniqueIdentifier>{2329b5c4-070b-4e03-9e68-3525105e178d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Pattern">
+      <UniqueIdentifier>{e959d0b2-fc9d-4755-87f4-b09b1f59d391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Pattern">
+      <UniqueIdentifier>{afe10a28-bd8a-4a12-b441-13d41213f59a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -54,6 +60,9 @@
     <ClCompile Include="src\NFA\NFA.cpp">
       <Filter>源文件\NFA</Filter>
     </ClCompile>
+    <ClCompile Include="src\Pattern\Pattern.cpp">
+      <Filter>源文件\Pattern</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Parser\RegExpr.h">
@@ -73,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="src\NFA\NFA.h">
       <Filter>头文件\NFA</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pattern\Pattern.h">
+      <Filter>头文件\Pattern</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

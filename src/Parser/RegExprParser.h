@@ -20,10 +20,10 @@ public:
 	~RegExprParser();
 
 	void setInput(const std::string& input);
-	void parse();
+	RegExprParser& parse();
 	void toNFA();
 	RegExpr getRegExpr() const;
-	NFAGraph getNFA() const;
+	NFAGraph getNFAGraph() const;
 
 private:
 	std::string input;

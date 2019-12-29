@@ -1,4 +1,5 @@
 #include "NFA.h"
+#include "../Parser/RegExpr.h"
 
 using namespace std;
 
