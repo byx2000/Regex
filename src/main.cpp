@@ -15,9 +15,9 @@ int main()
 
 	//while (1)
 	{
-		Pattern pat("abc");
+		Pattern pat("a*b");
 		pat.compile();
-		pat.compile();
+		cout << pat.match("aaaaaaaabb") << endl;
 	}
 
 	_CrtDumpMemoryLeaks();

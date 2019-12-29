@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 
 class NFAEdge
 {
@@ -15,8 +16,6 @@ private:
 	char _ch;
 };
 
-class RegExpr;
-
 class NFA
 {
 public:
@@ -24,8 +23,13 @@ public:
 	void addEdge(int index, const NFAEdge& edge);
 	std::vector<NFAEdge> getEdges(int index) const;
 	std::string toString() const;
+	bool match(const std::string& txt) const;
 
 private:
 	std::vector<std::vector<NFAEdge>> edges;
 	std::vector<bool> accepted;
+
+	void updateNextState(std::set<int>& s, char ch) const;
+	void updateEpsilonClosure(std::set<int>& s) const;
+	void epsilonClosure_dfs(int cur, std::vector<bool>& book) const;
 };

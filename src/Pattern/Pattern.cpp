@@ -19,3 +19,8 @@ Pattern& Pattern::compile()
 	ng.clear();
 	return *this;
 }
+
+bool Pattern::match(const std::string& txt)
+{
+	return nfa.match(txt);
+}
