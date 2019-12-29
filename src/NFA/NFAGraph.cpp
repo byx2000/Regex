@@ -1,5 +1,7 @@
 #include "NFAGraph.h"
 
+#include <iostream>
+
 using namespace std;
 
 NFAGraph::NFAGraph()
@@ -27,6 +29,15 @@ std::string NFAGraph::toString() const
 	return s;
 }
 
+NFA NFAGraph::toNFA() const
+{
+	NFA nfa;
+	map<State*, int> book;
+	int maxIndex = 0;
+	toNFA_dfs(start, maxIndex, book, nfa);
+	return nfa;
+}
+
 void NFAGraph::clear()
 {
 	if (start != NULL && end != NULL)
@@ -43,12 +54,13 @@ void NFAGraph::toString_dfs(State* cur, std::set<State*>& book, std::string& s) 
 	s += "\n";
 	book.insert(cur);
 
-	vector<State*> next = cur->getNextStates();
-	for (int i = 0; i < (int)next.size(); ++i)
+	int cnt = cur->getTransferCount();
+	for (int i = 0; i < cnt; ++i)
 	{
-		if (book.count(next[i]) == 0)
+		State* next = cur->getTransferState(i);
+		if (book.count(next) == 0)
 		{
-			toString_dfs(next[i], book, s);
+			toString_dfs(next, book, s);
 		}
 	}
 }
@@ -56,13 +68,38 @@ void NFAGraph::toString_dfs(State* cur, std::set<State*>& book, std::string& s) 
 void NFAGraph::clear_dfs(State* cur, std::set<State*>& book)
 {
 	book.insert(cur);
-	vector<State*> next = cur->getNextStates();
-	for (int i = 0; i < (int)next.size(); ++i)
+	int cnt = cur->getTransferCount();
+	for (int i = 0; i < cnt; ++i)
 	{
-		if (book.count(next[i]) == 0)
+		State* next = cur->getTransferState(i);
+		if (book.count(next) == 0)
 		{
-			clear_dfs(next[i], book);
+			clear_dfs(next, book);
 		}
 	}
 	delete cur;
+}
+
+void NFAGraph::toNFA_dfs(State* cur, int& maxIndex, std::map<State*, int>& book, NFA& nfa) const
+{
+	book[cur] = maxIndex++;
+	nfa.addNode(cur->isAccepted());
+
+	int t = maxIndex;
+	int cnt = cur->getTransferCount();
+	for (int i = 0; i < cnt; ++i)
+	{
+		State* next = cur->getTransferState(i);
+		char ch = cur->getTransferChar(i);
+
+		if (book.count(next) == 0)
+		{
+			nfa.addEdge(t - 1, NFAEdge(maxIndex, ch));
+			toNFA_dfs(next, maxIndex, book, nfa);
+		}
+		else
+		{
+			nfa.addEdge(t - 1, NFAEdge(book[next], ch));
+		}
+	}
 }

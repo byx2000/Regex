@@ -25,7 +25,7 @@ void State::addTransfer(State* state, char _ch)
 	chs.push_back(_ch);
 }
 
-std::vector<State*> State::getNextStates() const
+/*std::vector<State*> State::getNextStates() const
 {
 	return next;
 }
@@ -41,6 +41,21 @@ std::vector<State*> State::getNextStates(char _ch) const
 		}
 	}
 	return res;
+}*/
+
+int State::getTransferCount() const
+{
+	return next.size();
+}
+
+State* State::getTransferState(int index) const
+{
+	return next[index];
+}
+
+char State::getTransferChar(int index) const
+{
+	return chs[index];
 }
 
 std::string State::toString() const

@@ -38,6 +38,11 @@ void NFA::addEdge(int index, const NFAEdge& edge)
 	edges[index].push_back(edge);
 }
 
+std::vector<NFAEdge> NFA::getEdges(int index) const
+{
+	return edges[index];
+}
+
 std::string NFA::toString() const
 {
 	string s = "";

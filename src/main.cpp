@@ -14,15 +14,14 @@ int main()
 
 	//while (1)
 	{
-		RegExprParser parser("(xyzw|(a*b))*|(c.d)*|apple");
+		RegExprParser parser("xy(ab|c)*|zw");
 		parser.parse();
 		parser.toNFA();
-		cout << parser.getNFA().toString() << endl;
 
-		NFA nfa;
-		nfa.addNode(false);
-		nfa.addNode(true);
-		nfa.addEdge(0, NFAEdge(1, 'a'));
+		NFAGraph ng = parser.getNFA();
+		cout << ng.toString() << endl;
+
+		NFA nfa = ng.toNFA();
 		cout << nfa.toString() << endl;
 	}
 

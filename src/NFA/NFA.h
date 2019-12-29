@@ -1,6 +1,7 @@
 #pragma once
 
-#include "NFAGraph.h"
+#include <string>
+#include <vector>
 
 class NFAEdge
 {
@@ -19,6 +20,7 @@ class NFA
 public:
 	void addNode(bool accepted);
 	void addEdge(int index, const NFAEdge& edge);
+	std::vector<NFAEdge> getEdges(int index) const;
 	std::string toString() const;
 
 private:
