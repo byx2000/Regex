@@ -37,7 +37,7 @@ NFAGraph RegExpr::getNFA() const
 	return p->getNFA();
 }
 
-Char::Char(char ch) : ch(ch)
+Char::Char(char _ch) : _ch(_ch)
 {
 
 }
@@ -45,13 +45,13 @@ Char::Char(char ch) : ch(ch)
 std::string Char::toString() const
 {
 	string s = "";
-	s.push_back(ch);
+	s.push_back(_ch);
 	return s;
 }
 
 NFAGraph Char::getNFA() const
 {
-	return NFAGraph(ch);
+	return NFAGraph(_ch);
 }
 
 std::string AnyChar::toString() const

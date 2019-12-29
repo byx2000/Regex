@@ -14,13 +14,13 @@ void ParserTest::run()
 
 	if (!f1)
 	{
-		cout << "Failed to open file: "  << in << endl;
+		cout << "Failed _to open file: "  << in << endl;
 		exit(0);
 	}
 
 	if (!f2)
 	{
-		cout << "Failed to open file: " << out << endl;
+		cout << "Failed _to open file: " << out << endl;
 		exit(0);
 	}
 

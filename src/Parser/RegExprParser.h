@@ -33,7 +33,7 @@ private:
 
 	char next();
 	char peek();
-	void read(char ch);
+	void read(char _ch);
 
 	RegExpr parseExpr();
 	RegExpr parseCatExpr();

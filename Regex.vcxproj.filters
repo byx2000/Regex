@@ -51,6 +51,9 @@
     <ClCompile Include="src\NFA\NFAGraph.cpp">
       <Filter>源文件\NFA</Filter>
     </ClCompile>
+    <ClCompile Include="src\NFA\NFA.cpp">
+      <Filter>源文件\NFA</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Parser\RegExpr.h">
@@ -66,6 +69,9 @@
       <Filter>头文件\NFA</Filter>
     </ClInclude>
     <ClInclude Include="src\NFA\NFAGraph.h">
+      <Filter>头文件\NFA</Filter>
+    </ClInclude>
+    <ClInclude Include="src\NFA\NFA.h">
       <Filter>头文件\NFA</Filter>
     </ClInclude>
   </ItemGroup>

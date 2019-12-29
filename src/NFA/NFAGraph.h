@@ -8,7 +8,7 @@ public:
 	State* start, * end;
 
 	NFAGraph();
-	NFAGraph(char ch);
+	NFAGraph(char _ch);
 	std::string toString() const;
 	void clear();
 	

@@ -28,11 +28,11 @@ private:
 class Char : public Node
 {
 public:
-	Char(char ch);
+	Char(char _ch);
 	virtual std::string toString() const override;
 	virtual NFAGraph getNFA() const override;
 private:
-	char ch;
+	char _ch;
 };
 
 class AnyChar : public Node

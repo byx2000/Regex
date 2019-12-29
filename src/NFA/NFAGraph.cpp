@@ -7,11 +7,11 @@ NFAGraph::NFAGraph()
 	start = end = NULL;
 }
 
-NFAGraph::NFAGraph(char ch)
+NFAGraph::NFAGraph(char _ch)
 {
 	start = new State(false);
 	end = new State(true);
-	start->addTransfer(end, ch);
+	start->addTransfer(end, _ch);
 }
 
 std::string NFAGraph::toString() const

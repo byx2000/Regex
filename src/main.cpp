@@ -4,6 +4,7 @@
 #include "Test/Test.h"
 #include "NFA/State.h"
 #include "NFA/NFAGraph.h"
+#include "NFA/NFA.h"
 
 using namespace std;
 
@@ -17,6 +18,12 @@ int main()
 		parser.parse();
 		parser.toNFA();
 		cout << parser.getNFA().toString() << endl;
+
+		NFA nfa;
+		nfa.addNode(false);
+		nfa.addNode(true);
+		nfa.addEdge(0, NFAEdge(1, 'a'));
+		cout << nfa.toString() << endl;
 	}
 
 	_CrtDumpMemoryLeaks();

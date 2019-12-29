@@ -69,12 +69,12 @@ char RegExprParser::peek()
 	return input[index];
 }
 
-void RegExprParser::read(char ch)
+void RegExprParser::read(char _ch)
 {
-	if (ch != next())
+	if (_ch != next())
 	{
 		string s = "";
-		s.push_back(ch);
+		s.push_back(_ch);
 		s += " expected.";
 		throw ParseError(s);
 	}
@@ -94,11 +94,11 @@ RegExpr RegExprParser::parseExpr()
 RegExpr RegExprParser::parseCatExpr()
 {
 	RegExpr res = parseFactor();
-	char ch = peek();
-	while (ch != 0 && ch != ')' && ch != '|')
+	char _ch = peek();
+	while (_ch != 0 && _ch != ')' && _ch != '|')
 	{
 		res = new Concat(res, parseFactor());
-		ch = peek();
+		_ch = peek();
 	}
 	return res;
 }
@@ -106,13 +106,13 @@ RegExpr RegExprParser::parseCatExpr()
 RegExpr RegExprParser::parseFactor()
 {
 	RegExpr res = parseTerm();
-	char ch = peek();
-	if (ch == '*')
+	char _ch = peek();
+	if (_ch == '*')
 	{
 		next();
 		return new StarClosure(res);
 	}
-	else if (ch == '+')
+	else if (_ch == '+')
 	{
 		next();
 		return new AddClosure(res);
@@ -125,16 +125,16 @@ RegExpr RegExprParser::parseFactor()
 
 RegExpr RegExprParser::parseTerm()
 {
-	char ch = next();
-	if (ch >= 'a' && ch <= 'z')
+	char _ch = next();
+	if (_ch >= 'a' && _ch <= 'z')
 	{
-		return new Char(ch);
+		return new Char(_ch);
 	}
-	else if (ch == '.')
+	else if (_ch == '.')
 	{
 		return new AnyChar();
 	}
-	else if (ch == '(')
+	else if (_ch == '(')
 	{
 		RegExpr res = parseExpr();
 		read(')');
@@ -143,7 +143,7 @@ RegExpr RegExprParser::parseTerm()
 	else
 	{
 		string s = "Unexpected character: ";
-		s.push_back(ch);
+		s.push_back(_ch);
 		throw ParseError(s);
 	}
 }

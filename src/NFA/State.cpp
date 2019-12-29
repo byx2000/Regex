@@ -19,10 +19,10 @@ void State::setAccepted(bool accepted)
 	this->accepted = accepted;
 }
 
-void State::addTransfer(State* state, char ch)
+void State::addTransfer(State* state, char _ch)
 {
 	next.push_back(state);
-	chs.push_back(ch);
+	chs.push_back(_ch);
 }
 
 std::vector<State*> State::getNextStates() const
@@ -30,12 +30,12 @@ std::vector<State*> State::getNextStates() const
 	return next;
 }
 
-std::vector<State*> State::getNextStates(char ch) const
+std::vector<State*> State::getNextStates(char _ch) const
 {
 	vector<State*> res;
 	for (int i = 0; i < (int)chs.size(); ++i)
 	{
-		if (chs[i] == '.' || chs[i] == ch)
+		if (chs[i] == '.' || chs[i] == _ch)
 		{
 			res.push_back(next[i]);
 		}
