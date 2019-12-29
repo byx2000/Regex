@@ -19,11 +19,6 @@ RegExprParser::RegExprParser(const std::string& input) : input(input), index(0)
 
 }
 
-RegExprParser::~RegExprParser()
-{
-	nfa.clear();
-}
-
 void RegExprParser::setInput(const std::string& input)
 {
 	this->input = input;
@@ -33,23 +28,12 @@ RegExprParser& RegExprParser::parse()
 {
 	index = 0;
 	expr = parseExpr();
-	nfa.clear();
 	return *this;
-}
-
-void RegExprParser::toNFA()
-{
-	nfa = expr.getNFAGraph();
 }
 
 RegExpr RegExprParser::getRegExpr() const
 {
 	return expr;
-}
-
-NFAGraph RegExprParser::getNFAGraph() const
-{
-	return nfa;
 }
 
 char RegExprParser::next()

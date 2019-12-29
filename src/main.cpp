@@ -19,6 +19,7 @@ int main()
 	{
 		Pattern pat("a*b");
 		pat.compile();
+		pat.match("aaaaaaaaaaab");
 		cout << pat.match("aaaaaaaabb") << endl;
 	}
 
