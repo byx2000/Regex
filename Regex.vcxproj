@@ -26,6 +26,7 @@
     <ClCompile Include="src\Parser\RegExpr.cpp" />
     <ClCompile Include="src\Parser\RegExprParser.cpp" />
     <ClCompile Include="src\Pattern\Pattern.cpp" />
+    <ClCompile Include="src\Test\StopWatch.cpp" />
     <ClCompile Include="src\Test\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +36,7 @@
     <ClInclude Include="src\Parser\RegExpr.h" />
     <ClInclude Include="src\Parser\RegExprParser.h" />
     <ClInclude Include="src\Pattern\Pattern.h" />
+    <ClInclude Include="src\Test\StopWatch.h" />
     <ClInclude Include="src\Test\Test.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

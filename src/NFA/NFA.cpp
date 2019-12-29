@@ -84,8 +84,6 @@ std::string NFA::toString() const
 
 bool NFA::match(const std::string& txt) const
 {
-	//cout << toString() << endl;
-
 	set<int> s;
 	s.insert(0);
 	updateEpsilonClosure(s);
