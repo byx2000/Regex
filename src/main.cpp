@@ -3,7 +3,7 @@
 #include "Parser/RegExprParser.h"
 #include "Test/Test.h"
 #include "NFA/State.h"
-#include "NFA/NFA.h"
+#include "NFA/NFAGraph.h"
 
 using namespace std;
 
@@ -13,7 +13,7 @@ int main()
 
 	//while (1)
 	{
-		RegExprParser parser("xyzw|(a*b)|(c.d)*");
+		RegExprParser parser("(xyzw|(a*b))*|(c.d)*|apple");
 		parser.parse();
 		parser.toNFA();
 		cout << parser.getNFA().toString() << endl;

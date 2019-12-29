@@ -48,7 +48,7 @@
     <ClCompile Include="src\NFA\State.cpp">
       <Filter>源文件\NFA</Filter>
     </ClCompile>
-    <ClCompile Include="src\NFA\NFA.cpp">
+    <ClCompile Include="src\NFA\NFAGraph.cpp">
       <Filter>源文件\NFA</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClInclude Include="src\NFA\State.h">
       <Filter>头文件\NFA</Filter>
     </ClInclude>
-    <ClInclude Include="src\NFA\NFA.h">
+    <ClInclude Include="src\NFA\NFAGraph.h">
       <Filter>头文件\NFA</Filter>
     </ClInclude>
   </ItemGroup>

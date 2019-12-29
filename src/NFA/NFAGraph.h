@@ -2,13 +2,13 @@
 
 #include "State.h"
 
-class NFA
+class NFAGraph
 {
 public:
 	State* start, * end;
 
-	NFA();
-	NFA(char ch);
+	NFAGraph();
+	NFAGraph(char ch);
 	std::string toString() const;
 	void clear();
 	

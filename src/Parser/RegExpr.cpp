@@ -32,7 +32,7 @@ std::string RegExpr::toString() const
 	}
 }
 
-NFA RegExpr::getNFA() const
+NFAGraph RegExpr::getNFA() const
 {
 	return p->getNFA();
 }
@@ -49,9 +49,9 @@ std::string Char::toString() const
 	return s;
 }
 
-NFA Char::getNFA() const
+NFAGraph Char::getNFA() const
 {
-	return NFA(ch);
+	return NFAGraph(ch);
 }
 
 std::string AnyChar::toString() const
@@ -59,9 +59,9 @@ std::string AnyChar::toString() const
 	return ".";
 }
 
-NFA AnyChar::getNFA() const
+NFAGraph AnyChar::getNFA() const
 {
-	return NFA('.');
+	return NFAGraph('.');
 }
 
 Concat::Concat(const RegExpr& lhs, const RegExpr& rhs) : lhs(lhs), rhs(rhs)
@@ -79,10 +79,10 @@ std::string Concat::toString() const
 	return s;
 }
 
-NFA Concat::getNFA() const
+NFAGraph Concat::getNFA() const
 {
-	NFA left = lhs.getNFA();
-	NFA right = rhs.getNFA();
+	NFAGraph left = lhs.getNFA();
+	NFAGraph right = rhs.getNFA();
 	*(left.end) = *(right.start);
 	delete right.start;
 	left.end = right.end;
@@ -104,10 +104,10 @@ std::string Choose::toString() const
 	return s;
 }
 
-NFA Choose::getNFA() const
+NFAGraph Choose::getNFA() const
 {
-	NFA left = lhs.getNFA();
-	NFA right = rhs.getNFA();
+	NFAGraph left = lhs.getNFA();
+	NFAGraph right = rhs.getNFA();
 	State* head = new State(false);
 	State* tail = new State(true);
 	head->addTransfer(left.start, ' ');
@@ -134,9 +134,9 @@ std::string StarClosure::toString() const
 	return s;
 }
 
-NFA StarClosure::getNFA() const
+NFAGraph StarClosure::getNFA() const
 {
-	NFA nfa = expr.getNFA();
+	NFAGraph nfa = expr.getNFA();
 	State* head = new State(false);
 	State* tail = new State(true);
 	head->addTransfer(nfa.start, ' ');
@@ -162,9 +162,9 @@ std::string AddClosure::toString() const
 	return s;
 }
 
-NFA AddClosure::getNFA() const
+NFAGraph AddClosure::getNFA() const
 {
-	NFA nfa = expr.getNFA();
+	NFAGraph nfa = expr.getNFA();
 	State* head = new State(false);
 	State* tail = new State(true);
 	head->addTransfer(nfa.start, ' ');

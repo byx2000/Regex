@@ -46,7 +46,7 @@ RegExpr RegExprParser::getRegExpr() const
 	return expr;
 }
 
-NFA RegExprParser::getNFA() const
+NFAGraph RegExprParser::getNFA() const
 {
 	return nfa;
 }

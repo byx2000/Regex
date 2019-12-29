@@ -23,13 +23,13 @@ public:
 	void parse();
 	void toNFA();
 	RegExpr getRegExpr() const;
-	NFA getNFA() const;
+	NFAGraph getNFA() const;
 
 private:
 	std::string input;
 	int index;
 	RegExpr expr;
-	NFA nfa;
+	NFAGraph nfa;
 
 	char next();
 	char peek();

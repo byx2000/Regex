@@ -1,20 +1,20 @@
-#include "NFA.h"
+#include "NFAGraph.h"
 
 using namespace std;
 
-NFA::NFA()
+NFAGraph::NFAGraph()
 {
 	start = end = NULL;
 }
 
-NFA::NFA(char ch)
+NFAGraph::NFAGraph(char ch)
 {
 	start = new State(false);
 	end = new State(true);
 	start->addTransfer(end, ch);
 }
 
-std::string NFA::toString() const
+std::string NFAGraph::toString() const
 {
 	string s = "begin: ";
 	s += to_string((long)start);
@@ -27,7 +27,7 @@ std::string NFA::toString() const
 	return s;
 }
 
-void NFA::clear()
+void NFAGraph::clear()
 {
 	if (start != NULL && end != NULL)
 	{
@@ -37,7 +37,7 @@ void NFA::clear()
 	}
 }
 
-void NFA::toString_dfs(State* cur, std::set<State*>& book, std::string& s) const
+void NFAGraph::toString_dfs(State* cur, std::set<State*>& book, std::string& s) const
 {
 	s += cur->toString();
 	s += "\n";
@@ -53,7 +53,7 @@ void NFA::toString_dfs(State* cur, std::set<State*>& book, std::string& s) const
 	}
 }
 
-void NFA::clear_dfs(State* cur, std::set<State*>& book)
+void NFAGraph::clear_dfs(State* cur, std::set<State*>& book)
 {
 	book.insert(cur);
 	vector<State*> next = cur->getNextStates();
