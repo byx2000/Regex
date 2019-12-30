@@ -103,6 +103,7 @@ bool NFA::match(const std::string& txt) const
 	return false;
 }
 
+//子集构造法
 DFA NFA::toDFA() const
 {
 	//获取输入字符集
@@ -111,12 +112,16 @@ DFA NFA::toDFA() const
 	{
 		for (int j = 0; j < (int)edges[i].size(); ++j)
 		{
-			inputSet.insert(edges[i][j].ch());
+			char ch = edges[i][j].ch();
+			if (ch != ' ')
+			{
+				inputSet.insert(ch);
+			}
 		}
 	}
+	vector<char> inputCharset(inputSet.begin(), inputSet.end());
 
 	DFA dfa;
-
 	set<int> s;
 	queue<set<int>> q;
 	map<set<int>, int> dState;
@@ -134,24 +139,23 @@ DFA NFA::toDFA() const
 		set<int> front = q.front();
 		q.pop();
 		int cur = dState[front];
-
-		for (auto i = inputSet.begin(); i != inputSet.end(); ++i)
+		
+		for (int i = 0; i < (int)inputCharset.size(); ++i)
 		{
-			if (*i == ' ')	continue;
-
+			char ch = inputCharset[i];
 			set<int> t = front;
-			getAllTransfer(t, *i);
+			getAllTransfer(t, ch);
 			
 			if (!t.empty())
 			{
 				if (dState.count(t) != 0)
 				{
-					dfa.addTransfer(cur, dState[t], *i);
+					dfa.addTransfer(cur, dState[t], ch);
 				}
 				else
 				{
 					dfa.addState(isAccepted(t));
-					dfa.addTransfer(cur, curIndex, *i);
+					dfa.addTransfer(cur, curIndex, ch);
 					dState[t] = curIndex;
 					curIndex++;
 					q.push(t);
@@ -220,7 +224,10 @@ void NFA::epsilonClosure_dfs(int cur, std::vector<bool>& book) const
 void NFA::getAllTransfer(std::set<int>& s, char ch) const
 {
 	updateNextState(s, ch);
-	updateEpsilonClosure(s);
+	if (!s.empty())
+	{
+		updateEpsilonClosure(s);
+	}
 }
 
 bool NFA::isAccepted(const std::set<int>& s) const

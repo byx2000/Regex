@@ -53,5 +53,9 @@ bool Pattern::match(const std::string& txt)
 
 std::string Pattern::toString() const
 {
-	return nfa.toString();
+	string s = "NFA:\n";
+	s += nfa.toString();
+	s += "\nDFA:\n";
+	s += dfa.toString();
+	return s;
 }
