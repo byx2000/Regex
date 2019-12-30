@@ -91,11 +91,9 @@ void PatternTest::run()
 			string ans;
 			f2 >> ans;
 			
-			Pattern pat(p);
 			try
 			{
-				pat.compile();
-				bool res = pat.match(s);
+				bool res = Pattern(p).compile().match(s);
 				if ((res && ans != "Yes") || (!res && ans != "No"))
 				{
 					cout << "Pattern test failed: wrong answer" << endl;
