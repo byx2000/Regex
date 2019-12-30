@@ -12,17 +12,10 @@ using namespace std;
 
 int main()
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	ParserTest::run();
 	PatternTest::run();
 
-	//while (1)
-	{
-		Pattern pat("a*b");
-		pat.compile();
-		pat.match("aaaaaaaaaaab");
-		cout << pat.match("aaaaaaaab") << endl;
-	}
-
-	_CrtDumpMemoryLeaks();
 	return 0;
 }
