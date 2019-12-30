@@ -12,14 +12,5 @@ int main()
 	ParserTest::run();
 	PatternTest::run();
 
-	Pattern pat("ab|ac");
-	cout << pat.toString() << endl;
-
-	DFA dfa;
-	dfa.addState(false);
-	dfa.addState(true);
-	dfa.addTransfer(0, 1, 'a');
-	cout << dfa.toString() << endl;
-
 	return 0;
 }

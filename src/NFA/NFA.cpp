@@ -2,12 +2,13 @@
 
 #include <iostream>
 #include <map>
+#include <queue>
 
 using namespace std;
 
-static void PrintSet(const set<int>& s)
+template<typename T>
+static void PrintSet(const set<T>& s)
 {
-	cout << "set: ";
 	for (auto i = s.begin(); i != s.end(); ++i)
 	{
 		cout << *i << " ";
@@ -104,17 +105,67 @@ bool NFA::match(const std::string& txt) const
 
 DFA NFA::toDFA() const
 {
+	//获取输入字符集
+	set<char> inputSet;
+	for (int i = 0; i < (int)edges.size(); ++i)
+	{
+		for (int j = 0; j < (int)edges[i].size(); ++j)
+		{
+			inputSet.insert(edges[i][j].ch());
+		}
+	}
+
 	DFA dfa;
 
 	set<int> s;
+	queue<set<int>> q;
 	map<set<int>, int> dState;
+	int curIndex = 0;
+
 	s.insert(0);
 	updateEpsilonClosure(s);
-
-	dfa.addState(false);
+	dfa.addState(isAccepted(s));
 	dState[s] = 0;
+	q.push(s);
+	curIndex++;
+
+	while (!q.empty())
+	{
+		set<int> front = q.front();
+		q.pop();
+		int cur = dState[front];
+
+		for (auto i = inputSet.begin(); i != inputSet.end(); ++i)
+		{
+			if (*i == ' ')	continue;
+
+			set<int> t = front;
+			getAllTransfer(t, *i);
+			
+			if (!t.empty())
+			{
+				if (dState.count(t) != 0)
+				{
+					dfa.addTransfer(cur, dState[t], *i);
+				}
+				else
+				{
+					dfa.addState(isAccepted(t));
+					dfa.addTransfer(cur, curIndex, *i);
+					dState[t] = curIndex;
+					curIndex++;
+					q.push(t);
+				}
+			}
+		}
+	}
 
 	return dfa;
+}
+
+bool NFA::empty() const
+{
+	return edges.size() == 0;
 }
 
 void NFA::updateNextState(std::set<int>& s, char ch) const
@@ -164,4 +215,22 @@ void NFA::epsilonClosure_dfs(int cur, std::vector<bool>& book) const
 			epsilonClosure_dfs(to, book);
 		}
 	}
+}
+
+void NFA::getAllTransfer(std::set<int>& s, char ch) const
+{
+	updateNextState(s, ch);
+	updateEpsilonClosure(s);
+}
+
+bool NFA::isAccepted(const std::set<int>& s) const
+{
+	for (auto i = s.begin(); i != s.end(); ++i)
+	{
+		if (accepted[*i])
+		{
+			return true;
+		}
+	}
+	return false;
 }

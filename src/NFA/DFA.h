@@ -10,6 +10,8 @@ public:
 	void addTransfer(int state, int to, char ch);
 	void setStateAccepted(int state, bool accepted);
 	std::string toString() const;
+	bool match(const std::string& txt) const;
+	bool empty() const;
 
 private:
 	std::vector<std::vector<char>> trans;

@@ -50,3 +50,22 @@ std::string DFA::toString() const
 
 	return s;
 }
+
+bool DFA::match(const std::string& txt) const
+{
+	int cur = 0;
+	for (int i = 0; i < (int)txt.size(); ++i)
+	{
+		cur = trans[cur][txt[i]];
+		if (cur == -1)
+		{
+			return false;
+		}
+	}
+	return accepted[cur];
+}
+
+bool DFA::empty() const
+{
+	return trans.size() == 0;
+}

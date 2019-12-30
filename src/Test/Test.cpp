@@ -91,9 +91,33 @@ void PatternTest::run()
 			string ans;
 			f2 >> ans;
 			
+			//NFA match
 			try
 			{
 				bool res = Pattern(p).compile().match(s);
+				if ((res && ans != "Yes") || (!res && ans != "No"))
+				{
+					cout << "Pattern test failed: wrong answer" << endl;
+					cout << "expr: " << p << endl;
+					cout << "txt: " << s << endl;
+					cout << "ans: " << ans << endl;
+					cout << "output: " << res << endl;
+					exit(0);
+				}
+			}
+			catch (ParseError err)
+			{
+				cout << "Pattern test failed: throw ParseError" << endl;
+				cout << "expr: " << p << endl;
+				cout << "txt: " << s << endl;
+				cout << "info: " << err.info() << endl;
+				exit(0);
+			}
+
+			//DFA match
+			try
+			{
+				bool res = Pattern(p).compileToDFA().match(s);
 				if ((res && ans != "Yes") || (!res && ans != "No"))
 				{
 					cout << "Pattern test failed: wrong answer" << endl;
