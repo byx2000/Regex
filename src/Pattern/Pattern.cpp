@@ -24,3 +24,8 @@ bool Pattern::match(const std::string& txt)
 {
 	return nfa.match(txt);
 }
+
+std::string Pattern::toString() const
+{
+	return nfa.toString();
+}

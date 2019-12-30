@@ -83,7 +83,7 @@ void NFAGraph::clear_dfs(State* cur, std::set<State*>& book)
 void NFAGraph::toNFA_dfs(State* cur, int& maxIndex, std::map<State*, int>& book, NFA& nfa) const
 {
 	book[cur] = maxIndex++;
-	nfa.addNode(cur->isAccepted());
+	nfa.addState(cur->isAccepted());
 
 	int t = maxIndex;
 	int cnt = cur->getTransferCount();
@@ -94,12 +94,12 @@ void NFAGraph::toNFA_dfs(State* cur, int& maxIndex, std::map<State*, int>& book,
 
 		if (book.count(next) == 0)
 		{
-			nfa.addEdge(t - 1, NFAEdge(maxIndex, ch));
+			nfa.addTransfer(t - 1, maxIndex, ch);
 			toNFA_dfs(next, maxIndex, book, nfa);
 		}
 		else
 		{
-			nfa.addEdge(t - 1, NFAEdge(book[next], ch));
+			nfa.addTransfer(t - 1, book[next], ch);
 		}
 	}
 }

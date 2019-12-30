@@ -1,12 +1,7 @@
 #include <iostream>
-#include "Parser/RegExpr.h"
-#include "Parser/RegExprParser.h"
 #include "Test/Test.h"
-#include "NFA/State.h"
-#include "NFA/NFAGraph.h"
-#include "NFA/NFA.h"
 #include "Pattern/Pattern.h"
-#include "Test/StopWatch.h"
+#include "NFA/DFA.h"
 
 using namespace std;
 
@@ -16,6 +11,15 @@ int main()
 
 	ParserTest::run();
 	PatternTest::run();
+
+	Pattern pat("ab|ac");
+	cout << pat.toString() << endl;
+
+	DFA dfa;
+	dfa.addState(false);
+	dfa.addState(true);
+	dfa.addTransfer(0, 1, 'a');
+	cout << dfa.toString() << endl;
 
 	return 0;
 }

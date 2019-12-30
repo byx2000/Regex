@@ -1,6 +1,7 @@
 #include "NFA.h"
 
 #include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -39,20 +40,15 @@ std::string NFAEdge::toString() const
 	return s;
 }
 
-void NFA::addNode(bool accepted)
+void NFA::addState(bool accepted)
 {
 	edges.push_back(vector<NFAEdge>());
 	this->accepted.push_back(accepted);
 }
 
-void NFA::addEdge(int index, const NFAEdge& edge)
+void NFA::addTransfer(int state, int to, char ch)
 {
-	edges[index].push_back(edge);
-}
-
-std::vector<NFAEdge> NFA::getEdges(int index) const
-{
-	return edges[index];
+	edges[state].push_back(NFAEdge(to, ch));
 }
 
 std::string NFA::toString() const
@@ -104,6 +100,21 @@ bool NFA::match(const std::string& txt) const
 	}
 
 	return false;
+}
+
+DFA NFA::toDFA() const
+{
+	DFA dfa;
+
+	set<int> s;
+	map<set<int>, int> dState;
+	s.insert(0);
+	updateEpsilonClosure(s);
+
+	dfa.addState(false);
+	dState[s] = 0;
+
+	return dfa;
 }
 
 void NFA::updateNextState(std::set<int>& s, char ch) const

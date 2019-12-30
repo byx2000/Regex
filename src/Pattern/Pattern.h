@@ -8,6 +8,7 @@ public:
 	Pattern(const std::string& input);
 	Pattern& compile();
 	bool match(const std::string& txt);
+	std::string toString() const;
 
 private:
 	std::string input;

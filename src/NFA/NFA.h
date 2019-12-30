@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include "DFA.h"
+
 #include <set>
 
 class NFAEdge
@@ -19,11 +19,11 @@ private:
 class NFA
 {
 public:
-	void addNode(bool accepted);
-	void addEdge(int index, const NFAEdge& edge);
-	std::vector<NFAEdge> getEdges(int index) const;
+	void addState(bool accepted);
+	void addTransfer(int state, int to, char ch);
 	std::string toString() const;
 	bool match(const std::string& txt) const;
+	DFA toDFA() const;
 
 private:
 	std::vector<std::vector<NFAEdge>> edges;
