@@ -13,7 +13,7 @@ int main()
 	ParserTest::run();
 	PatternTest::run();
 
-	Pattern pat(".*abcaabcab.*");
+	/*Pattern pat(".*abcaabcab.*");
 	pat.compileToDFA();
 	cout << pat.toString() << endl;
 
@@ -23,7 +23,7 @@ int main()
 	cout << pat.match("sdjgtfuiwegjkfbmsndgfjsgdjshabcksdhfjskhjkdbsjdkfjskdb") << endl;
 
 	Matcher matcher1 = new CharMatcher('a');
-	Matcher atcher2 = new AnyCharMatcher();
+	Matcher atcher2 = new AnyCharMatcher();*/
 
 	return 0;
 }

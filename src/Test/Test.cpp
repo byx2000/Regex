@@ -67,6 +67,7 @@ void PatternTest::run()
 	watch.begin();
 	
 	test1();
+	test2();
 
 	watch.end();
 	cout << "Pattern tests passed!\ttime: " << watch.duration() << "s" << endl;
@@ -105,6 +106,7 @@ void PatternTest::test1()
 				bool res = Pattern(p).compile().match(s);
 				if ((res && ans != "Yes") || (!res && ans != "No"))
 				{
+					cout << "file: " << in << endl;
 					cout << "Pattern test failed: wrong answer" << endl;
 					cout << "expr: " << p << endl;
 					cout << "txt: " << s << endl;
@@ -115,6 +117,7 @@ void PatternTest::test1()
 			}
 			catch (ParseError err)
 			{
+				cout << "file: " << in << endl;
 				cout << "Pattern test failed: throw ParseError" << endl;
 				cout << "expr: " << p << endl;
 				cout << "txt: " << s << endl;
@@ -128,6 +131,7 @@ void PatternTest::test1()
 				bool res = Pattern(p).compileToDFA().match(s);
 				if ((res && ans != "Yes") || (!res && ans != "No"))
 				{
+					cout << "file: " << in << endl;
 					cout << "Pattern test failed: wrong answer" << endl;
 					cout << "expr: " << p << endl;
 					cout << "txt: " << s << endl;
@@ -138,6 +142,7 @@ void PatternTest::test1()
 			}
 			catch (ParseError err)
 			{
+				cout << "file: " << in << endl;
 				cout << "Pattern test failed: throw ParseError" << endl;
 				cout << "expr: " << p << endl;
 				cout << "txt: " << s << endl;
@@ -145,5 +150,103 @@ void PatternTest::test1()
 				exit(0);
 			}
 		}
+	}
+}
+
+void PatternTest::test2()
+{
+	const int NUM_TESTCASE = 3;
+	for (int i = 1; i <= NUM_TESTCASE; ++i)
+	{
+		string in = "src\\Test\\TestCase\\PatternTest\\test2\\match" + to_string(i) + ".in";
+		string out = "src\\Test\\TestCase\\PatternTest\\test2\\match" + to_string(i) + ".out";
+		ifstream f1(in), f2(out);
+
+		if (!f1)
+		{
+			cout << "Failed _to open file: " << in << endl;
+			exit(0);
+		}
+
+		if (!f2)
+		{
+			cout << "Failed _to open file: " << out << endl;
+			exit(0);
+		}
+
+		string p;
+		f1 >> p;
+
+		//NFA match
+		{
+			Pattern pat(p);
+			try
+			{
+				pat.compile();
+			}
+			catch (ParseError err)
+			{
+				cout << "file: " << in << endl;
+				cout << "Pattern test failed: wrong answer" << endl;
+				cout << "expr: " << p << endl;
+				exit(0);
+			}
+
+			string txt;
+			f1 >> txt;
+			while (f1 >> txt)
+			{
+				bool res = pat.match(txt);
+				string ans;
+				f2 >> ans;
+				if ((res && ans != "YES") || (!res && ans != "NO"))
+				{
+					cout << "file: " << in << endl;
+					cout << "Pattern test failed: wrong answer" << endl;
+					cout << "expr: " << p << endl;
+					cout << "txt: " << txt << endl;
+					cout << "ans: " << ans << endl;
+					cout << "output: " << res << endl;
+					exit(0);
+				}
+			}
+		}
+
+		//DFA match
+		{
+			Pattern pat(p);
+			try
+			{
+				pat.compileToDFA();
+			}
+			catch (ParseError err)
+			{
+				cout << "file: " << in << endl;
+				cout << "Pattern test failed: wrong answer" << endl;
+				cout << "expr: " << p << endl;
+				exit(0);
+			}
+
+			string txt;
+			f1 >> txt;
+			while (f1 >> txt)
+			{
+				bool res = pat.match(txt);
+				string ans;
+				f2 >> ans;
+				if ((res && ans != "YES") || (!res && ans != "NO"))
+				{
+					cout << "file: " << in << endl;
+					cout << "Pattern test failed: wrong answer" << endl;
+					cout << "expr: " << p << endl;
+					cout << "txt: " << txt << endl;
+					cout << "ans: " << ans << endl;
+					cout << "output: " << res << endl;
+					exit(0);
+				}
+			}
+		}
+
+		
 	}
 }
