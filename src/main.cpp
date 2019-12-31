@@ -13,14 +13,14 @@ int main()
 	ParserTest::run();
 	PatternTest::run();
 
-	/*Pattern pat("(a|b|c)*abaccabac(a|b|c)*");
+	Pattern pat(".*abcaabcab.*");
 	pat.compileToDFA();
 	cout << pat.toString() << endl;
 
-	cout << pat.match("abaccabac") << endl;
-	cout << pat.match("acbccababaccabaccbabbca") << endl;
-	cout << pat.match("bbabcbaababaccabacaababaaaba") << endl;
-	cout << pat.match("aaaaaaaaaaaaabbbbbbbbbbbbbaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbabacacabacbbbbbbbbbaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbb") << endl;*/
+	cout << pat.match("abc") << endl;
+	cout << pat.match("xyz") << endl;
+	cout << pat.match("aaaaabacaaaabaaababa") << endl;
+	cout << pat.match("sdjgtfuiwegjkfbmsndgfjsgdjshabcksdhfjskhjkdbsjdkfjskdb") << endl;
 
 	Matcher matcher1 = new CharMatcher('a');
 	Matcher atcher2 = new AnyCharMatcher();

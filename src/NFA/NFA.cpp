@@ -108,17 +108,7 @@ DFA NFA::toDFA() const
 {
 	//获取输入字符集
 	set<char> inputSet;
-	for (int i = 0; i < (int)edges.size(); ++i)
-	{
-		for (int j = 0; j < (int)edges[i].size(); ++j)
-		{
-			char ch = edges[i][j].ch();
-			if (ch != ' ')
-			{
-				inputSet.insert(ch);
-			}
-		}
-	}
+	getInputSet(inputSet);
 	vector<char> inputCharset(inputSet.begin(), inputSet.end());
 
 	DFA dfa;
@@ -217,6 +207,29 @@ void NFA::epsilonClosure_dfs(int cur, std::vector<bool>& book) const
 		if (ch == ' ' && !book[to])
 		{
 			epsilonClosure_dfs(to, book);
+		}
+	}
+}
+
+void NFA::getInputSet(std::set<char>& inputSet) const
+{
+	for (int i = 0; i < (int)edges.size(); ++i)
+	{
+		for (int j = 0; j < (int)edges[i].size(); ++j)
+		{
+			char ch = edges[i][j].ch();
+			if (ch == '.')
+			{
+				for (char c = 'a'; c <= 'z'; ++c)
+				{
+					inputSet.insert(c);
+				}
+				return;
+			}
+			else if (ch != ' ')
+			{
+				inputSet.insert(ch);
+			}
 		}
 	}
 }

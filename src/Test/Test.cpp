@@ -63,14 +63,22 @@ void ParserTest::run()
 
 void PatternTest::run()
 {
-	const int NUM_TESTCASE = 11;
-
 	StopWatch watch;
 	watch.begin();
+	
+	test1();
+
+	watch.end();
+	cout << "Pattern tests passed!\ttime: " << watch.duration() << "s" << endl;
+}
+
+void PatternTest::test1()
+{
+	const int NUM_TESTCASE = 11;
 	for (int i = 1; i <= NUM_TESTCASE; ++i)
 	{
-		string in = "src\\Test\\TestCase\\PatternTest\\regular" + to_string(i) + ".in";
-		string out = "src\\Test\\TestCase\\PatternTest\\regular" + to_string(i) + ".out";
+		string in = "src\\Test\\TestCase\\PatternTest\\test1\\regular" + to_string(i) + ".in";
+		string out = "src\\Test\\TestCase\\PatternTest\\test1\\regular" + to_string(i) + ".out";
 		ifstream f1(in), f2(out);
 
 		if (!f1)
@@ -90,7 +98,7 @@ void PatternTest::run()
 		{
 			string ans;
 			f2 >> ans;
-			
+
 			//NFA match
 			try
 			{
@@ -138,7 +146,4 @@ void PatternTest::run()
 			}
 		}
 	}
-
-	watch.end();
-	cout << "Pattern tests passed!\ttime: " << watch.duration() << "s" << endl;
 }
