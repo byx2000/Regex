@@ -6,6 +6,7 @@
 class DFA
 {
 public:
+	DFA();
 	void addState(bool accepted);
 	void addTransfer(int state, int to, char ch);
 	void setStateAccepted(int state, bool accepted);
@@ -14,6 +15,6 @@ public:
 	bool empty() const;
 
 private:
-	std::vector<std::vector<char>> trans;
+	std::vector<std::vector<int>> trans;
 	std::vector<bool> accepted;
 };

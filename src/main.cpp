@@ -13,11 +13,11 @@ int main()
 	ParserTest::run();
 	PatternTest::run();
 
-	/*Pattern pat(".*abcaabcab.*");
+	/*Pattern pat(".*dufgdbfbsjkdhfkjsdbmdsiuvgfyui.*.*dbvbf..jsgdfsdbm..nbfm.*.*nsdgfsjdbmncdsfsdgjfbgd|bgdbdfmnbghdfjbgffdbgfdbjxzgjcbsvbkjsdhvkjbsddbck.*");
 	pat.compileToDFA();
 	cout << pat.toString() << endl;
 
-	cout << pat.match("abc") << endl;
+	cout << pat.match("bgdbdfmnbghdfjbgffdbgfdbjxzgjcbsvbkjsdhvkjbsddbckjdfgbjsdghfjsgdfsjhgfshj") << endl;
 	cout << pat.match("xyz") << endl;
 	cout << pat.match("aaaaabacaaaabaaababa") << endl;
 	cout << pat.match("sdjgtfuiwegjkfbmsndgfjsgdjshabcksdhfjskhjkdbsjdkfjskdb") << endl;

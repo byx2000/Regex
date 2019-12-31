@@ -2,9 +2,13 @@
 
 using namespace std;
 
+DFA::DFA()
+{
+}
+
 void DFA::addState(bool accepted)
 {
-	trans.push_back(vector<char>(256, -1));
+	trans.push_back(vector<int>(256, -1));
 	this->accepted.push_back(accepted);
 }
 
