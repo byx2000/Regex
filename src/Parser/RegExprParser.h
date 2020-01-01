@@ -1,8 +1,7 @@
 #pragma once
 
 #include "RegExpr.h"
-
-#include <string>
+#include "../NFA/NFA.h"
 
 class ParseError
 {
@@ -13,26 +12,23 @@ private:
 	std::string msg;
 };
 
-class RegExprParser
+class RegParser
 {
 public:
-	RegExprParser(const std::string& input = "");
-
+	RegParser(const std::string& input);
 	void setInput(const std::string& input);
-	RegExprParser& parse();
-	RegExpr getRegExpr() const;
+	RegParser& parse(NFA& nfa);
 
 private:
 	std::string input;
 	int index;
-	RegExpr expr;
 
 	char next();
 	char peek();
-	void read(char _ch);
+	void read(char ch);
 
-	RegExpr parseExpr();
-	RegExpr parseCatExpr();
-	RegExpr parseFactor();
-	RegExpr parseTerm();
+	NFAGraph parseExpr();
+	NFAGraph parseCatExpr();
+	NFAGraph parseFactor();
+	NFAGraph parseTerm();
 };

@@ -13,7 +13,11 @@ public:
 	NFAGraph();
 	NFAGraph(char _ch);
 	std::string toString() const;
-	NFA toNFA() const;
+	void concat(NFAGraph& ng);
+	void parallel(NFAGraph& ng);
+	void starClosure();
+	void addClosure();
+	void toNFA(NFA& nfa) const;
 	void clear();
 	
 private:

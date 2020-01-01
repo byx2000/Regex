@@ -1,10 +1,10 @@
 #pragma once
 
-class ParserTest
+/*class ParserTest
 {
 public:
 	static void run();
-};
+};*/
 
 class PatternTest
 {

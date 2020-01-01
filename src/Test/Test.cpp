@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void ParserTest::run()
+/*void ParserTest::run()
 {
 	StopWatch watch;
 	watch.begin();
@@ -59,7 +59,7 @@ void ParserTest::run()
 
 	watch.end();
 	cout << "Parser tests passed!\ttime: " << watch.duration() << "s" << endl;
-}
+}*/
 
 void PatternTest::run()
 {

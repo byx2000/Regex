@@ -29,13 +29,58 @@ std::string NFAGraph::toString() const
 	return s;
 }
 
-NFA NFAGraph::toNFA() const
+void NFAGraph::concat(NFAGraph& ng)
 {
-	NFA nfa;
+	*end = *(ng.start);
+	delete ng.start;
+	end = ng.end;
+}
+
+void NFAGraph::parallel(NFAGraph& ng)
+{
+	State* head = new State(false);
+	State* tail = new State(true);
+	head->addTransfer(start, ' ');
+	head->addTransfer(ng.start, ' ');
+	end->addTransfer(tail, ' ');
+	ng.end->addTransfer(tail, ' ');
+	end->setAccepted(false);
+	ng.end->setAccepted(false);
+	start = head;
+	end = tail;
+}
+
+void NFAGraph::starClosure()
+{
+	State* head = new State(false);
+	State* tail = new State(true);
+	head->addTransfer(start, ' ');
+	head->addTransfer(tail, ' ');
+	end->addTransfer(tail, ' ');
+	end->addTransfer(start, ' ');
+	end->setAccepted(false);
+	start = head;
+	end = tail;
+}
+
+void NFAGraph::addClosure()
+{
+	State* head = new State(false);
+	State* tail = new State(true);
+	head->addTransfer(start, ' ');
+	end->addTransfer(tail, ' ');
+	end->addTransfer(start, ' ');
+	end->setAccepted(false);
+	start = head;
+	end = tail;
+}
+
+void NFAGraph::toNFA(NFA& nfa) const
+{
+	nfa.clear();
 	map<State*, int> book;
 	int maxIndex = 0;
 	toNFA_dfs(start, maxIndex, book, nfa);
-	return nfa;
 }
 
 void NFAGraph::clear()

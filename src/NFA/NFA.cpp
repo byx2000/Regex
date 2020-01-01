@@ -162,6 +162,12 @@ bool NFA::empty() const
 	return edges.size() == 0;
 }
 
+void NFA::clear()
+{
+	edges.clear();
+	accepted.clear();
+}
+
 void NFA::updateNextState(std::set<int>& s, char ch) const
 {
 	set<int> t;

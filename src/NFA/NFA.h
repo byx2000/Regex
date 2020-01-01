@@ -25,6 +25,7 @@ public:
 	bool match(const std::string& txt) const;
 	DFA toDFA() const;
 	bool empty() const;
+	void clear();
 
 private:
 	std::vector<std::vector<NFAEdge>> edges;

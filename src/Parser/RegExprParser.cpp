@@ -14,29 +14,26 @@ std::string ParseError::info() const
 	return msg;
 }
 
-RegExprParser::RegExprParser(const std::string& input) : input(input), index(0)
+RegParser::RegParser(const std::string& input) : input(input), index(0)
 {
 
 }
 
-void RegExprParser::setInput(const std::string& input)
+void RegParser::setInput(const std::string& input)
 {
 	this->input = input;
 }
 
-RegExprParser& RegExprParser::parse()
+RegParser& RegParser::parse(NFA& nfa)
 {
 	index = 0;
-	expr = parseExpr();
+	NFAGraph ng = parseExpr();
+	ng.toNFA(nfa);
+	ng.clear();
 	return *this;
 }
 
-RegExpr RegExprParser::getRegExpr() const
-{
-	return expr;
-}
-
-char RegExprParser::next()
+char RegParser::next()
 {
 	if (index == input.size())
 	{
@@ -45,7 +42,7 @@ char RegExprParser::next()
 	return input[index++];
 }
 
-char RegExprParser::peek()
+char RegParser::peek()
 {
 	if (index == input.size())
 	{
@@ -54,81 +51,76 @@ char RegExprParser::peek()
 	return input[index];
 }
 
-void RegExprParser::read(char _ch)
+void RegParser::read(char ch)
 {
-	if (_ch != next())
+	if (ch != next())
 	{
 		string s = "";
-		s.push_back(_ch);
+		s.push_back(ch);
 		s += " expected.";
 		throw ParseError(s);
 	}
 }
 
-RegExpr RegExprParser::parseExpr()
+NFAGraph RegParser::parseExpr()
 {
-	RegExpr res = parseCatExpr();
+	NFAGraph ng = parseCatExpr();
 	while (peek() == '|')
 	{
 		next();
-		res = new Choose(res, parseCatExpr());
+		NFAGraph t = parseCatExpr();
+		ng.parallel(t);
 	}
-	return res;
+	return ng;
 }
 
-RegExpr RegExprParser::parseCatExpr()
+NFAGraph RegParser::parseCatExpr()
 {
-	RegExpr res = parseFactor();
-	char _ch = peek();
-	while (_ch != 0 && _ch != ')' && _ch != '|')
+	NFAGraph ng = parseFactor();
+	char ch = peek();
+	while (ch != 0 && ch != ')' && ch != '|')
 	{
-		res = new Concat(res, parseFactor());
-		_ch = peek();
+		NFAGraph t = parseFactor();
+		ng.concat(t);
+		ch = peek();
 	}
-	return res;
+	return ng;
 }
 
-RegExpr RegExprParser::parseFactor()
+NFAGraph RegParser::parseFactor()
 {
-	RegExpr res = parseTerm();
-	char _ch = peek();
-	if (_ch == '*')
+	NFAGraph ng = parseTerm();
+	char ch = peek();
+	if (ch == '*')
 	{
 		next();
-		return new StarClosure(res);
+		ng.starClosure();
 	}
-	else if (_ch == '+')
+	else if (ch == '+')
 	{
 		next();
-		return new AddClosure(res);
+		ng.addClosure();
 	}
-	else
-	{
-		return res;
-	}
+	return ng;
 }
 
-RegExpr RegExprParser::parseTerm()
+NFAGraph RegParser::parseTerm()
 {
-	char _ch = next();
-	if (_ch >= 'a' && _ch <= 'z')
+	char ch = next();
+	if ((ch >= 'a' && ch <= 'z') || ch == '.')
 	{
-		return new Char(_ch);
+		return NFAGraph(ch);
 	}
-	else if (_ch == '.')
+	else if (ch == '(')
 	{
-		return new AnyChar();
-	}
-	else if (_ch == '(')
-	{
-		RegExpr res = parseExpr();
+		NFAGraph ng = parseExpr();
 		read(')');
-		return res;
+		return ng;
 	}
 	else
 	{
 		string s = "Unexpected character: ";
-		s.push_back(_ch);
+		s.push_back(ch);
 		throw ParseError(s);
 	}
 }

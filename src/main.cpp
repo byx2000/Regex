@@ -1,8 +1,7 @@
 #include <iostream>
 #include "Test/Test.h"
 #include "Pattern/Pattern.h"
-#include "NFA/DFA.h"
-#include "Matcher/Matcher.h"
+#include "Parser/RegExprParser.h"
 
 using namespace std;
 
@@ -10,20 +9,13 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	ParserTest::run();
+	//ParserTest::run();
 	PatternTest::run();
 
-	/*Pattern pat(".*dufgdbfbsjkdhfkjsdbmdsiuvgfyui.*.*dbvbf..jsgdfsdbm..nbfm.*.*nsdgfsjdbmncdsfsdgjfbgd|bgdbdfmnbghdfjbgffdbgfdbjxzgjcbsvbkjsdhvkjbsddbck.*");
-	pat.compileToDFA();
-	cout << pat.toString() << endl;
-
-	cout << pat.match("bgdbdfmnbghdfjbgffdbgfdbjxzgjcbsvbkjsdhvkjbsddbckjdfgbjsdghfjsgdfsjhgfshj") << endl;
-	cout << pat.match("xyz") << endl;
-	cout << pat.match("aaaaabacaaaabaaababa") << endl;
-	cout << pat.match("sdjgtfuiwegjkfbmsndgfjsgdjshabcksdhfjskhjkdbsjdkfjskdb") << endl;
-
-	Matcher matcher1 = new CharMatcher('a');
-	Matcher atcher2 = new AnyCharMatcher();*/
+	RegParser parser(".*sdgd|sfgd.*");
+	NFA nfa;
+	parser.parse(nfa);
+	cout << nfa.toString() << endl;
 
 	return 0;
 }
