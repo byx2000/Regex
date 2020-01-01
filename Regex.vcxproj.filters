@@ -48,9 +48,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\Parser\RegExpr.cpp">
-      <Filter>源文件\Parser</Filter>
-    </ClCompile>
     <ClCompile Include="src\Parser\RegExprParser.cpp">
       <Filter>源文件\Parser</Filter>
     </ClCompile>
@@ -80,9 +77,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Parser\RegExpr.h">
-      <Filter>头文件\Parser</Filter>
-    </ClInclude>
     <ClInclude Include="src\Parser\RegExprParser.h">
       <Filter>头文件\Parser</Filter>
     </ClInclude>

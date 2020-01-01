@@ -1,11 +1,5 @@
 #pragma once
 
-/*class ParserTest
-{
-public:
-	static void run();
-};*/
-
 class PatternTest
 {
 public:

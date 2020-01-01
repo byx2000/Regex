@@ -73,3 +73,9 @@ bool DFA::empty() const
 {
 	return trans.size() == 0;
 }
+
+void DFA::clear()
+{
+	trans.clear();
+	accepted.clear();
+}

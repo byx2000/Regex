@@ -23,7 +23,7 @@ public:
 	void addTransfer(int state, int to, char ch);
 	std::string toString() const;
 	bool match(const std::string& txt) const;
-	DFA toDFA() const;
+	void toDFA(DFA& dfa) const;
 	bool empty() const;
 	void clear();
 

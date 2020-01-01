@@ -25,7 +25,6 @@
     <ClCompile Include="src\NFA\NFA.cpp" />
     <ClCompile Include="src\NFA\NFAGraph.cpp" />
     <ClCompile Include="src\NFA\State.cpp" />
-    <ClCompile Include="src\Parser\RegExpr.cpp" />
     <ClCompile Include="src\Parser\RegExprParser.cpp" />
     <ClCompile Include="src\Pattern\Pattern.cpp" />
     <ClCompile Include="src\Test\StopWatch.cpp" />
@@ -37,7 +36,6 @@
     <ClInclude Include="src\NFA\NFA.h" />
     <ClInclude Include="src\NFA\NFAGraph.h" />
     <ClInclude Include="src\NFA\State.h" />
-    <ClInclude Include="src\Parser\RegExpr.h" />
     <ClInclude Include="src\Parser\RegExprParser.h" />
     <ClInclude Include="src\Pattern\Pattern.h" />
     <ClInclude Include="src\Test\StopWatch.h" />

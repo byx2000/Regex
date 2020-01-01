@@ -26,7 +26,7 @@ Pattern& Pattern::compileToDFA()
 	{
 		compile();
 	}
-	dfa = nfa.toDFA();
+	nfa.toDFA(dfa);
 	return *this;
 }
 

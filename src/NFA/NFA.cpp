@@ -104,14 +104,14 @@ bool NFA::match(const std::string& txt) const
 }
 
 //子集构造法
-DFA NFA::toDFA() const
+void NFA::toDFA(DFA& dfa) const
 {
 	//获取输入字符集
 	set<char> inputSet;
 	getInputSet(inputSet);
 	vector<char> inputCharset(inputSet.begin(), inputSet.end());
 
-	DFA dfa;
+	dfa.clear();
 	set<int> s;
 	queue<set<int>> q;
 	map<set<int>, int> dState;
@@ -153,8 +153,6 @@ DFA NFA::toDFA() const
 			}
 		}
 	}
-
-	return dfa;
 }
 
 bool NFA::empty() const

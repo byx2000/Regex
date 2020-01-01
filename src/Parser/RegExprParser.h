@@ -1,7 +1,6 @@
 #pragma once
 
-#include "RegExpr.h"
-#include "../NFA/NFA.h"
+#include "../NFA/NFAGraph.h"
 
 class ParseError
 {

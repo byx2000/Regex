@@ -13,6 +13,7 @@ public:
 	std::string toString() const;
 	bool match(const std::string& txt) const;
 	bool empty() const;
+	void clear();
 
 private:
 	std::vector<std::vector<int>> trans;
