@@ -176,10 +176,11 @@ void NFA::updateNextState(std::set<int>& s, char ch) const
 
 void NFA::updateEpsilonClosure(std::set<int>& s) const
 {
+	//µÝ¹é
 	/*vector<bool> book(edges.size(), false);
 	for (auto i = s.begin(); i != s.end(); ++i)
 	{
-		epsilonClosure_dfs(*i, book);
+		epsilonClosure_dfs(*i, book, t);
 	}
 
 	s.clear();
@@ -191,6 +192,7 @@ void NFA::updateEpsilonClosure(std::set<int>& s) const
 		}
 	}*/
 
+	//·ÇµÝ¹é
 	vector<bool> book(edges.size(), false);
 	stack<int> sta;
 	set<int> t;
@@ -223,8 +225,9 @@ void NFA::updateEpsilonClosure(std::set<int>& s) const
 	s = t;
 }
 
-void NFA::epsilonClosure_dfs(int cur, std::vector<bool>& book) const
+void NFA::epsilonClosure_dfs(int cur, std::vector<bool>& book, std::set<int>& s) const
 {
+	s.insert(cur);
 	book[cur] = true;
 	for (int i = 0; i < (int)edges[cur].size(); ++i)
 	{
@@ -232,7 +235,7 @@ void NFA::epsilonClosure_dfs(int cur, std::vector<bool>& book) const
 		int to = edges[cur][i].to;
 		if (ch == ' ' && !book[to])
 		{
-			epsilonClosure_dfs(to, book);
+			epsilonClosure_dfs(to, book, s);
 		}
 	}
 }

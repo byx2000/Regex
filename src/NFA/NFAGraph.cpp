@@ -79,11 +79,13 @@ void NFAGraph::addClosure()
 
 void NFAGraph::toNFA(NFA& nfa) const
 {
+	//µÝ¹é
 	/*nfa.clear();
 	map<State*, int> book;
 	int maxIndex = 0;
 	toNFA_dfs(start, maxIndex, book, nfa);*/
 
+	//·ÇµÝ¹é
 	nfa.clear();
 	map<State*, int> book;
 	stack<State*> s;
@@ -132,17 +134,18 @@ void NFAGraph::toNFA(NFA& nfa) const
 			}
 		}
 	}
-	
 }
 
 void NFAGraph::clear()
 {
 	if (start != NULL && end != NULL)
 	{
+		//µÝ¹é
 		/*set<State*> book;
 		clear_dfs(start, book);
 		start = end = NULL;*/
 
+		//·ÇµÝ¹é
 		stack<State*> s;
 		s.push(start);
 		set<State*> book;
