@@ -7,13 +7,12 @@
 class NFAEdge
 {
 public:
-	NFAEdge(int _to, char _ch);
-	int to() const;
-	char ch() const;
+	NFAEdge(int to, char ch);
+	//int to() const;
+	//char ch() const;
 	std::string toString() const;
-private:
-	int _to;
-	char _ch;
+	int to;
+	char ch;
 };
 
 class NFA

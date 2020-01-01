@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <queue>
+#include <stack>
 
 using namespace std;
 
@@ -16,27 +17,17 @@ static void PrintSet(const set<T>& s)
 	cout << endl;
 }
 
-NFAEdge::NFAEdge(int to, char ch) : _to(to), _ch(ch)
+NFAEdge::NFAEdge(int to, char ch) : to(to), ch(ch)
 {
 
-}
-
-int NFAEdge::to() const
-{
-	return _to;
-}
-
-char NFAEdge::ch() const
-{
-	return _ch;
 }
 
 std::string NFAEdge::toString() const
 {
 	string s = "(";
-	s += to_string(_to);
+	s += to_string(to);
 	s += ",";
-	s.push_back(_ch);
+	s.push_back(ch);
 	s += ")";
 	return s;
 }
@@ -173,10 +164,10 @@ void NFA::updateNextState(std::set<int>& s, char ch) const
 	{
 		for (int j = 0; j < (int)edges[*i].size(); ++j)
 		{
-			char c = edges[*i][j].ch();
+			char c = edges[*i][j].ch;
 			if (c == '.' || c == ch)
 			{
-				t.insert(edges[*i][j].to());
+				t.insert(edges[*i][j].to);
 			}
 		}
 	}
@@ -185,7 +176,7 @@ void NFA::updateNextState(std::set<int>& s, char ch) const
 
 void NFA::updateEpsilonClosure(std::set<int>& s) const
 {
-	vector<bool> book(edges.size(), false);
+	/*vector<bool> book(edges.size(), false);
 	for (auto i = s.begin(); i != s.end(); ++i)
 	{
 		epsilonClosure_dfs(*i, book);
@@ -198,7 +189,38 @@ void NFA::updateEpsilonClosure(std::set<int>& s) const
 		{
 			s.insert(i);
 		}
+	}*/
+
+	vector<bool> book(edges.size(), false);
+	stack<int> sta;
+	set<int> t;
+	for (auto i = s.begin(); i != s.end(); ++i)
+	{
+		int index = *i;
+		if (!book[index])
+		{
+			sta.push(index);
+			while (!sta.empty())
+			{
+				int cur = sta.top();
+				sta.pop();
+				book[cur] = true;
+				t.insert(cur);
+
+				for (int j = 0; j < (int)edges[cur].size(); ++j)
+				{
+					int to = edges[cur][j].to;
+					int ch = edges[cur][j].ch;
+					if (ch == ' ' && !book[to])
+					{
+						sta.push(to);
+					}
+				}
+			}
+		}
 	}
+
+	s = t;
 }
 
 void NFA::epsilonClosure_dfs(int cur, std::vector<bool>& book) const
@@ -206,8 +228,8 @@ void NFA::epsilonClosure_dfs(int cur, std::vector<bool>& book) const
 	book[cur] = true;
 	for (int i = 0; i < (int)edges[cur].size(); ++i)
 	{
-		char ch = edges[cur][i].ch();
-		int to = edges[cur][i].to();
+		char ch = edges[cur][i].ch;
+		int to = edges[cur][i].to;
 		if (ch == ' ' && !book[to])
 		{
 			epsilonClosure_dfs(to, book);
@@ -221,7 +243,7 @@ void NFA::getInputSet(std::set<char>& inputSet) const
 	{
 		for (int j = 0; j < (int)edges[i].size(); ++j)
 		{
-			char ch = edges[i][j].ch();
+			char ch = edges[i][j].ch;
 			if (ch == '.')
 			{
 				for (char c = 'a'; c <= 'z'; ++c)

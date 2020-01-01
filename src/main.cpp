@@ -11,10 +11,5 @@ int main()
 
 	PatternTest::run();
 
-	RegParser parser("a*");
-	NFA nfa;
-	parser.parse(nfa);
-	cout << nfa.toString() << endl;
-
 	return 0;
 }
