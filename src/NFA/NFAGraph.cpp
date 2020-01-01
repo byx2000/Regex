@@ -1,6 +1,8 @@
 #include "NFAGraph.h"
 
 #include <iostream>
+#include <stack>
+#include <queue>
 
 using namespace std;
 
@@ -77,19 +79,92 @@ void NFAGraph::addClosure()
 
 void NFAGraph::toNFA(NFA& nfa) const
 {
-	nfa.clear();
+	/*nfa.clear();
 	map<State*, int> book;
 	int maxIndex = 0;
-	toNFA_dfs(start, maxIndex, book, nfa);
+	toNFA_dfs(start, maxIndex, book, nfa);*/
+
+	nfa.clear();
+	map<State*, int> book;
+	stack<State*> s;
+	s.push(start);
+	int maxIndex = 0;
+	while (!s.empty())
+	{
+		State* cur = s.top();
+		s.pop();
+		
+		book[cur] = maxIndex++;
+		nfa.addState(cur->isAccepted());
+
+		int cnt = cur->getTransferCount();
+		for (int i = 0; i < cnt; ++i)
+		{
+			State* next = cur->getTransferState(i);
+
+			if (book.count(next) == 0)
+			{
+				s.push(next);
+			}
+		}
+	}
+
+	s = stack<State*>();
+	set<State*> book2;
+	s.push(start);
+	while (!s.empty())
+	{
+		State* cur = s.top();
+		s.pop();
+
+		book2.insert(cur);
+
+		int cnt = cur->getTransferCount();
+		for (int i = 0; i < cnt; ++i)
+		{
+			State* next = cur->getTransferState(i);
+			char ch = cur->getTransferChar(i);
+			nfa.addTransfer(book[cur], book[next], ch);
+
+			if (book2.count(next) == 0)
+			{
+				s.push(next);
+			}
+		}
+	}
+	
 }
 
 void NFAGraph::clear()
 {
 	if (start != NULL && end != NULL)
 	{
-		set<State*> book;
+		/*set<State*> book;
 		clear_dfs(start, book);
-		start = end = NULL;
+		start = end = NULL;*/
+
+		stack<State*> s;
+		s.push(start);
+		set<State*> book;
+		while (!s.empty())
+		{
+			State* cur = s.top();
+			s.pop();
+			book.insert(cur);
+
+			int cnt = cur->getTransferCount();
+			for (int i = 0; i < cnt; ++i)
+			{
+				State* next = cur->getTransferState(i);
+
+				if (book.count(next) == 0)
+				{
+					s.push(next);
+				}
+			}
+
+			delete cur;
+		}
 	}
 }
 

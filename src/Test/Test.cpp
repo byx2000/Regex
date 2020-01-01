@@ -193,7 +193,5 @@ void PatternTest::test2()
 				}
 			}
 		}
-
-		
 	}
 }

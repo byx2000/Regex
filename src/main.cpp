@@ -9,10 +9,9 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	//ParserTest::run();
 	PatternTest::run();
 
-	RegParser parser(".*sdgd|sfgd.*");
+	RegParser parser("a*");
 	NFA nfa;
 	parser.parse(nfa);
 	cout << nfa.toString() << endl;
