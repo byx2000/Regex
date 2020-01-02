@@ -1,4 +1,5 @@
 #include "RegExprParser.h"
+#include "../Common/Charset.h"
 
 #include <iostream>
 
@@ -64,6 +65,7 @@ void RegParser::read(char ch)
 
 NFAGraph RegParser::parseExpr()
 {
+	//cout << "expr" << endl;
 	NFAGraph ng = parseCatExpr();
 	while (peek() == '|')
 	{
@@ -76,6 +78,7 @@ NFAGraph RegParser::parseExpr()
 
 NFAGraph RegParser::parseCatExpr()
 {
+	//cout << "cat" << endl;
 	NFAGraph ng = parseFactor();
 	char ch = peek();
 	while (ch != 0 && ch != ')' && ch != '|')
@@ -89,6 +92,7 @@ NFAGraph RegParser::parseCatExpr()
 
 NFAGraph RegParser::parseFactor()
 {
+	//cout << "fac" << endl;
 	NFAGraph ng = parseTerm();
 	char ch = peek();
 	if (ch == '*')
@@ -106,16 +110,21 @@ NFAGraph RegParser::parseFactor()
 
 NFAGraph RegParser::parseTerm()
 {
+	//cout << "term" << endl;
 	char ch = next();
-	if ((ch >= 'a' && ch <= 'z') || ch == '.')
+	if (ch == '.')
 	{
-		return NFAGraph(ch);
+		return NFAGraph(Charset::AnyChar);
 	}
 	else if (ch == '(')
 	{
 		NFAGraph ng = parseExpr();
 		read(')');
 		return ng;
+	}
+	else if (Charset::inCharset(ch))
+	{
+		return NFAGraph(ch);
 	}
 	else
 	{

@@ -2,6 +2,7 @@
 #include "Test/Test.h"
 #include "Pattern/Pattern.h"
 #include "Parser/RegExprParser.h"
+#include "Common/Charset.h"
 
 using namespace std;
 

@@ -16,7 +16,19 @@ NFAGraph::NFAGraph(char ch)
 {
 	start = new State(false);
 	end = new State(true);
-	start->addTransfer(end, ch);
+	if (ch == Charset::AnyChar)
+	{
+		const set<char>& charset = Charset::GetCharset();
+		for (auto i = charset.begin(); i != charset.end(); ++i)
+		{
+			start->addTransfer(end, *i);
+		}
+	}
+	else
+	{
+		
+		start->addTransfer(end, ch);
+	}
 }
 
 std::string NFAGraph::toString() const
@@ -81,13 +93,13 @@ void NFAGraph::addClosure()
 void NFAGraph::toNFA(NFA& nfa) const
 {
 	//µÝ¹é
-	/*nfa.clear();
+	nfa.clear();
 	map<State*, int> book;
 	int maxIndex = 0;
-	toNFA_dfs(start, maxIndex, book, nfa);*/
+	toNFA_dfs(start, maxIndex, book, nfa);
 
 	//·ÇµÝ¹é
-	nfa.clear();
+	/*nfa.clear();
 	map<State*, int> book;
 	stack<State*> s;
 	s.push(start);
@@ -134,13 +146,14 @@ void NFAGraph::toNFA(NFA& nfa) const
 				s.push(next);
 			}
 		}
-	}
+	}*/
 }
 
 void NFAGraph::clear()
 {
 	if (start != NULL && end != NULL)
 	{
+		//cout << toString() << endl;
 		//µÝ¹é
 		/*set<State*> book;
 		clear_dfs(start, book);
@@ -154,6 +167,9 @@ void NFAGraph::clear()
 		{
 			State* cur = s.top();
 			s.pop();
+
+			if (book.count(cur) > 0)	 continue;
+
 			book.insert(cur);
 
 			int cnt = cur->getTransferCount();
