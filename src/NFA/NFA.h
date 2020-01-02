@@ -8,8 +8,6 @@ class NFAEdge
 {
 public:
 	NFAEdge(int to, char ch);
-	//int to() const;
-	//char ch() const;
 	std::string toString() const;
 	int to;
 	char ch;

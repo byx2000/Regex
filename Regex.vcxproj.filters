@@ -43,6 +43,12 @@
     <Filter Include="源文件\Matcher">
       <UniqueIdentifier>{0a64e467-15b7-4771-a5ad-7453b394914b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Common">
+      <UniqueIdentifier>{445a67c1-914d-4cef-a53c-888f73628039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{ff81fb08-e7b0-467b-97ca-6b5b89b8031e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -75,6 +81,9 @@
     <ClCompile Include="src\Matcher\Matcher.cpp">
       <Filter>源文件\Matcher</Filter>
     </ClCompile>
+    <ClCompile Include="src\Common\Charset.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Parser\RegExprParser.h">
@@ -103,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="src\Matcher\Matcher.h">
       <Filter>头文件\Matcher</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Charset.h">
+      <Filter>头文件\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

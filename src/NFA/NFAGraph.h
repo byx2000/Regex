@@ -9,7 +9,7 @@ class NFAGraph
 {
 public:
 	NFAGraph();
-	NFAGraph(char _ch);
+	NFAGraph(char ch);
 	std::string toString() const;
 	void concat(NFAGraph& ng);
 	void parallel(NFAGraph& ng);

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Common\Charset.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Matcher\Matcher.cpp" />
     <ClCompile Include="src\NFA\DFA.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="src\Test\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Common\Charset.h" />
     <ClInclude Include="src\Matcher\Matcher.h" />
     <ClInclude Include="src\NFA\DFA.h" />
     <ClInclude Include="src\NFA\NFA.h" />

@@ -1,4 +1,5 @@
 #include "NFAGraph.h"
+#include "../Common/Charset.h"
 
 #include <iostream>
 #include <stack>
@@ -11,11 +12,11 @@ NFAGraph::NFAGraph()
 	start = end = NULL;
 }
 
-NFAGraph::NFAGraph(char _ch)
+NFAGraph::NFAGraph(char ch)
 {
 	start = new State(false);
 	end = new State(true);
-	start->addTransfer(end, _ch);
+	start->addTransfer(end, ch);
 }
 
 std::string NFAGraph::toString() const
@@ -42,10 +43,10 @@ void NFAGraph::parallel(NFAGraph& ng)
 {
 	State* head = new State(false);
 	State* tail = new State(true);
-	head->addTransfer(start, ' ');
-	head->addTransfer(ng.start, ' ');
-	end->addTransfer(tail, ' ');
-	ng.end->addTransfer(tail, ' ');
+	head->addTransfer(start, Charset::Epsilon);
+	head->addTransfer(ng.start, Charset::Epsilon);
+	end->addTransfer(tail, Charset::Epsilon);
+	ng.end->addTransfer(tail, Charset::Epsilon);
 	end->setAccepted(false);
 	ng.end->setAccepted(false);
 	start = head;
@@ -56,10 +57,10 @@ void NFAGraph::starClosure()
 {
 	State* head = new State(false);
 	State* tail = new State(true);
-	head->addTransfer(start, ' ');
-	head->addTransfer(tail, ' ');
-	end->addTransfer(tail, ' ');
-	end->addTransfer(start, ' ');
+	head->addTransfer(start, Charset::Epsilon);
+	head->addTransfer(tail, Charset::Epsilon);
+	end->addTransfer(tail, Charset::Epsilon);
+	end->addTransfer(start, Charset::Epsilon);
 	end->setAccepted(false);
 	start = head;
 	end = tail;
@@ -69,9 +70,9 @@ void NFAGraph::addClosure()
 {
 	State* head = new State(false);
 	State* tail = new State(true);
-	head->addTransfer(start, ' ');
-	end->addTransfer(tail, ' ');
-	end->addTransfer(start, ' ');
+	head->addTransfer(start, Charset::Epsilon);
+	end->addTransfer(tail, Charset::Epsilon);
+	end->addTransfer(start, Charset::Epsilon);
 	end->setAccepted(false);
 	start = head;
 	end = tail;

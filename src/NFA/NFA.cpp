@@ -1,4 +1,5 @@
 #include "NFA.h"
+#include "../Common/Charset.h"
 
 #include <iostream>
 #include <map>
@@ -19,7 +20,7 @@ static void PrintSet(const set<T>& s)
 
 NFAEdge::NFAEdge(int to, char ch) : to(to), ch(ch)
 {
-
+	
 }
 
 std::string NFAEdge::toString() const
@@ -213,7 +214,7 @@ void NFA::updateEpsilonClosure(std::set<int>& s) const
 				{
 					int to = edges[cur][j].to;
 					int ch = edges[cur][j].ch;
-					if (ch == ' ' && !book[to])
+					if (ch == Charset::Epsilon && !book[to])
 					{
 						sta.push(to);
 					}
@@ -233,7 +234,7 @@ void NFA::epsilonClosure_dfs(int cur, std::vector<bool>& book, std::set<int>& s)
 	{
 		char ch = edges[cur][i].ch;
 		int to = edges[cur][i].to;
-		if (ch == ' ' && !book[to])
+		if (ch == Charset::Epsilon && !book[to])
 		{
 			epsilonClosure_dfs(to, book, s);
 		}
@@ -255,7 +256,7 @@ void NFA::getInputSet(std::set<char>& inputSet) const
 				}
 				return;
 			}
-			else if (ch != ' ')
+			else if (ch != Charset::Epsilon)
 			{
 				inputSet.insert(ch);
 			}
