@@ -251,13 +251,40 @@ void PatternTest::test3()
 	string p, t;
 	while (f1 >> p >> t)
 	{
+		int ans;
+		f2 >> ans;
+
 		//NFA match
 		{
 			try
 			{
 				bool res = Pattern(p).compile().match(t);
-				int ans;
-				f2 >> ans;
+				if ((res && ans != 1) || (!res && ans != 0))
+				{
+					cout << "test failed" << endl;
+					cout << "file: " << in << endl;
+					cout << "pat: " << p << endl;
+					cout << "txt: " << t << endl;
+					cout << "output: " << res << endl;
+					exit(0);
+				}
+			}
+			catch (ParseError err)
+			{
+				cout << "test failed" << endl;
+				cout << "file: " << in << endl;
+				cout << "pat: " << p << endl;
+				cout << "txt: " << t << endl;
+				cout << "info: " << err.info() << endl;
+				exit(0);
+			}
+		}
+
+		//DFA match
+		{
+			try
+			{
+				bool res = Pattern(p).compileToDFA().match(t);
 				if ((res && ans != 1) || (!res && ans != 0))
 				{
 					cout << "test failed" << endl;

@@ -7,12 +7,6 @@
 
 using namespace std;
 
-static struct CharsetTable
-{
-	CharsetTable() : charset(Charset::GetCharset()) {}
-	const set<char>& charset;
-} table;
-
 NFAGraph::NFAGraph()
 {
 	start = end = NULL;
@@ -25,7 +19,7 @@ NFAGraph::NFAGraph(char ch)
 	if (ch == Charset::AnyChar)
 	{
 		const set<char>& charset = Charset::GetCharset();
-		for (auto i = table.charset.begin(); i != table.charset.end(); ++i)
+		for (auto i = charset.begin(); i != charset.end(); ++i)
 		{
 			start->addTransfer(end, *i);
 		}

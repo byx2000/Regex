@@ -113,7 +113,7 @@ NFAGraph RegParser::parseTerm()
 		read(')');
 		return ng;
 	}
-	else if (Charset::inCharset(ch))
+	else if (Charset::InCharset(ch))
 	{
 		return NFAGraph(ch);
 	}
