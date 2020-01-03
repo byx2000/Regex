@@ -1,5 +1,5 @@
 #include "Pattern.h"
-#include "../Parser/RegExprParser.h"
+#include "../Parser/RegParser.h"
 
 #include <iostream>
 

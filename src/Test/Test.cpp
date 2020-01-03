@@ -1,7 +1,8 @@
 #include "Test.h"
 #include "StopWatch.h"
-#include "../Parser/RegExprParser.h"
+#include "../Parser/RegParser.h"
 #include "../Pattern/Pattern.h"
+#include "../Common/Error.h"
 
 #include <iostream>
 #include <fstream>

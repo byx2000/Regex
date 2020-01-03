@@ -20,25 +20,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Common\Charset.cpp" />
+    <ClCompile Include="src\Common\Error.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Matcher\Matcher.cpp" />
     <ClCompile Include="src\NFA\DFA.cpp" />
     <ClCompile Include="src\NFA\NFA.cpp" />
     <ClCompile Include="src\NFA\NFAGraph.cpp" />
     <ClCompile Include="src\NFA\State.cpp" />
-    <ClCompile Include="src\Parser\RegExprParser.cpp" />
+    <ClCompile Include="src\Parser\RegParser.cpp" />
     <ClCompile Include="src\Pattern\Pattern.cpp" />
     <ClCompile Include="src\Test\StopWatch.cpp" />
     <ClCompile Include="src\Test\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common\Charset.h" />
+    <ClInclude Include="src\Common\Error.h" />
     <ClInclude Include="src\Matcher\Matcher.h" />
     <ClInclude Include="src\NFA\DFA.h" />
     <ClInclude Include="src\NFA\NFA.h" />
     <ClInclude Include="src\NFA\NFAGraph.h" />
     <ClInclude Include="src\NFA\State.h" />
-    <ClInclude Include="src\Parser\RegExprParser.h" />
+    <ClInclude Include="src\Parser\RegParser.h" />
     <ClInclude Include="src\Pattern\Pattern.h" />
     <ClInclude Include="src\Test\StopWatch.h" />
     <ClInclude Include="src\Test\Test.h" />

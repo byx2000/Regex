@@ -1,19 +1,10 @@
-#include "RegExprParser.h"
+#include "RegParser.h"
 #include "../Common/Charset.h"
+#include "../Common/Error.h"
 
 #include <iostream>
 
 using namespace std;
-
-ParseError::ParseError(const std::string& msg) : msg(msg)
-{
-
-}
-
-std::string ParseError::info() const
-{
-	return msg;
-}
 
 RegParser::RegParser(const std::string& input) : input(input), index(0)
 {

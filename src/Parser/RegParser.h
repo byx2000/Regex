@@ -2,15 +2,6 @@
 
 #include "../NFA/NFAGraph.h"
 
-class ParseError
-{
-public:
-	ParseError(const std::string& msg);
-	std::string info() const;
-private:
-	std::string msg;
-};
-
 class RegParser
 {
 public:
