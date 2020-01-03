@@ -11,7 +11,19 @@ static struct Alphabet
 {
 	Alphabet()
 	{
+		//Ìí¼Ó×Ö·û¼¯
+
 		for (char c = 'a'; c <= 'z'; ++c)
+		{
+			charset.insert(c);
+		}
+
+		for (char c = 'A'; c <= 'Z'; ++c)
+		{
+			charset.insert(c);
+		}
+
+		for (char c = '0'; c <= '9'; ++c)
 		{
 			charset.insert(c);
 		}
