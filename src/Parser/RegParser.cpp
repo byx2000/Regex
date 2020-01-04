@@ -29,7 +29,7 @@ char RegParser::next()
 {
 	if (index == input.size())
 	{
-		return 0;
+		return Charset::End;
 	}
 	return input[index++];
 }
@@ -38,7 +38,7 @@ char RegParser::peek()
 {
 	if (index == input.size())
 	{
-		return 0;
+		return Charset::End;
 	}
 	return input[index];
 }
@@ -72,7 +72,7 @@ NFAGraph RegParser::parseCatExpr()
 	//cout << "cat" << endl;
 	NFAGraph ng = parseFactor();
 	char ch = peek();
-	while (ch != 0 && ch != ')' && ch != '|')
+	while (ch != Charset::End && ch != ')' && ch != '|')
 	{
 		NFAGraph t = parseFactor();
 		ng.concat(t);
@@ -103,20 +103,30 @@ NFAGraph RegParser::parseTerm()
 {
 	//cout << "term" << endl;
 	char ch = next();
+
+	//任意字符
 	if (ch == '.')
 	{
 		return NFAGraph(Charset::AnyChar);
 	}
+	//左括号
 	else if (ch == '(')
 	{
 		NFAGraph ng = parseExpr();
 		read(')');
 		return ng;
 	}
+	//转义字符
+	/*else if (ch == '\\')
+	{
+		//if (peek() == 0)
+	}*/
+	//其余合法字符
 	else if (Charset::InCharset(ch))
 	{
 		return NFAGraph(ch);
 	}
+	//不合法字符
 	else
 	{
 		string s = "Unexpected character: ";

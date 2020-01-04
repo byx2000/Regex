@@ -4,8 +4,9 @@
 
 using namespace std;
 
-char Charset::AnyChar = 0;
+char Charset::AnyChar = 2;
 char Charset::Epsilon = 1;
+char Charset::End = 0;
 
 static struct Alphabet
 {
