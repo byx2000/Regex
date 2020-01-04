@@ -232,7 +232,7 @@ void PatternTest::test3()
 		assert(Pattern(p).compileToDFA().match(t));
 	}
 
-	char meta[] = { '.', '*', '?', '|', '(', ')', '\\', '+' };
+	char meta[] = { '.', '*', '?', '|', '(', ')', '\\', '+', '[', ']' };
 	for (int i = 0; i < (int)sizeof(meta) / sizeof(char); ++i)
 	{
 		string p, t;

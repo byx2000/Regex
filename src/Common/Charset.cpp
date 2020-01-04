@@ -51,7 +51,7 @@ bool Charset::InCharset(char ch)
 
 bool Charset::IsMetaChar(char ch)
 {
-	return ch == '.' || ch == '\\' || ch == '*' || ch == '(' || ch == ')' || ch == '|' || ch == '?' || ch == '+';
+	return ch == '.' || ch == '\\' || ch == '*' || ch == '(' || ch == ')' || ch == '|' || ch == '?' || ch == '+' || ch == '[' || ch == ']';
 }
 
 const std::set<char>& Charset::GetCharset()
