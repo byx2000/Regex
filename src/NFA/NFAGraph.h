@@ -12,6 +12,7 @@ public:
 	NFAGraph(char ch);
 	NFAGraph(char c1, char c2);
 	NFAGraph(const std::vector<char>& chs);
+	NFAGraph(const std::vector<std::pair<char, char>>& scopes);
 	std::string toString() const;
 	void concat(NFAGraph& ng);
 	void parallel(NFAGraph& ng);

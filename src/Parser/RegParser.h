@@ -23,5 +23,5 @@ private:
 	NFAGraph parseFactor();
 	NFAGraph parseTerm();
 	NFAGraph parseScope();
-	NFAGraph parseChoice();
+	char parseChar();
 };

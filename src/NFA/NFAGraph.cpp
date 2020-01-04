@@ -81,6 +81,43 @@ NFAGraph::NFAGraph(const vector<char>& chs)
 	}
 }
 
+NFAGraph::NFAGraph(const std::vector<std::pair<char, char>>& scopes)
+{
+	start = new State(false);
+	end = new State(true);
+
+	for (int i = 0; i < (int)scopes.size(); ++i)
+	{
+		char c1 = scopes[i].first;
+		char c2 = scopes[i].second;
+
+		if (c1 > c2)
+		{
+			string s = "Illegal scope: [";
+			s.push_back(c1);
+			s.push_back(',');
+			s.push_back(c2);
+			s.push_back(']');
+			throw ParseError(s);
+		}
+
+		for (char ch = c1; ch <= c2; ++ch)
+		{
+			if (!Charset::InCharset(ch))
+			{
+				string s = "Illegal scope: [";
+				s.push_back(c1);
+				s.push_back(',');
+				s.push_back(c2);
+				s.push_back(']');
+				throw ParseError(s);
+			}
+
+			start->addTransfer(end, ch);
+		}
+	}
+}
+
 std::string NFAGraph::toString() const
 {
 	string s = "begin: ";

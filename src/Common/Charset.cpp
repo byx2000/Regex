@@ -29,7 +29,7 @@ static struct Alphabet
 			charset.insert(c);
 		}
 
-		char others[] = { '.', '*', '\\', '?', ',', ';', '(', ')', '{', '}', '{', '}', '[', ']', '-', '\'', '_', '|', '+' };
+		char others[] = { '.', '*', '\\', '?', ',', ';', '(', ')', '{', '}', '{', '}', '[', ']', '-', '\'', '_', '|', '+', '-', '/', '<', '>' };
 		for (int i = 0; i < (int)sizeof(others) / sizeof(char); ++i)
 		{
 			charset.insert(others[i]);
@@ -51,7 +51,7 @@ bool Charset::InCharset(char ch)
 
 bool Charset::IsMetaChar(char ch)
 {
-	return ch == '.' || ch == '\\' || ch == '*' || ch == '(' || ch == ')' || ch == '|' || ch == '?' || ch == '+' || ch == '[' || ch == ']';
+	return ch == '.' || ch == '\\' || ch == '*' || ch == '(' || ch == ')' || ch == '|' || ch == '?' || ch == '+' || ch == '[' || ch == ']' ||ch == '-';
 }
 
 const std::set<char>& Charset::GetCharset()

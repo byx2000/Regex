@@ -126,22 +126,10 @@ NFAGraph RegParser::parseTerm()
 	}
 	//×óÖÐÀ¨ºÅ
 	else if (ch == '[')
-	{
-		next();
-		if (peek() == '-')
-		{
-			back();
-			NFAGraph ng = parseScope();
-			read(']');
-			return ng;
-		}
-		else
-		{
-			back();
-			NFAGraph ng = parseChoice();
-			read(']');
-			return ng;
-		}
+	{\
+		NFAGraph ng = parseScope();
+		read(']');
+		return ng;
 	}
 	//×ªÒå×Ö·û
 	else if (ch == '\\')
@@ -178,20 +166,23 @@ NFAGraph RegParser::parseTerm()
 
 NFAGraph RegParser::parseScope()
 {
-	char c1 = next();
-	read('-');
-	char c2 = next();
-	return NFAGraph(c1, c2);
-}
+	if (peek() == ']')
+	{
+		throw ParseError("Scope can not be empty.");
+	}
 
-NFAGraph RegParser::parseChoice()
-{
-	vector<char> chs;
-	chs.push_back(next());
-
+	vector<pair<char, char>> scopes;
 	while (peek() != ']' && peek() != Charset::End)
 	{
-		chs.push_back(next());
+		char c1 = parseChar();
+		char c2 = c1;
+		if (peek() == '-')
+		{
+			next();
+			c2 = parseChar();
+		}
+
+		scopes.push_back(pair<char, char>(c1, c2));
 	}
 
 	if (peek() == Charset::End)
@@ -199,5 +190,23 @@ NFAGraph RegParser::parseChoice()
 		throw ParseError("Unexpected end of expression.");
 	}
 
-	return NFAGraph(chs);
+	return NFAGraph(scopes);
+}
+
+char RegParser::parseChar()
+{
+	char ch = next();
+	if (ch == '\\')
+	{
+		ch = next();
+		if (!Charset::IsMetaChar(ch))
+		{
+			string s;
+			s.push_back(ch);
+			s += ": ";
+			throw ParseError(s + "Meta char expected.");
+		}
+	}
+
+	return ch;
 }
