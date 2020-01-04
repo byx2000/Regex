@@ -232,6 +232,17 @@ void PatternTest::test3()
 		assert(Pattern(p).compileToDFA().match(t));
 	}
 
+	char meta[] = { '.', '*', '?', '|', '(', ')', '\\', '+' };
+	for (int i = 0; i < (int)sizeof(meta) / sizeof(char); ++i)
+	{
+		string p, t;
+		p.push_back('\\');
+		p.push_back(meta[i]);
+		t.push_back(meta[i]);
+		assert(Pattern(p).compile().match(t));
+		assert(Pattern(p).compileToDFA().match(t));
+	}
+
 	string in = "src\\Test\\TestCase\\PatternTest\\test3\\in.txt";
 	string out = "src\\Test\\TestCase\\PatternTest\\test3\\out.txt";
 	ifstream f1(in), f2(out);

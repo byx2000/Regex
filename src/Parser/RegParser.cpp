@@ -117,10 +117,24 @@ NFAGraph RegParser::parseTerm()
 		return ng;
 	}
 	//转义字符
-	/*else if (ch == '\\')
+	else if (ch == '\\')
 	{
-		//if (peek() == 0)
-	}*/
+		if (peek() == Charset::End)
+		{
+			throw ParseError("Unexpected end of expression.");
+		}
+		
+		char meta = next();
+		if (!Charset::IsMetaChar(meta))
+		{
+			string s;
+			s.push_back(meta);
+			s += ": ";
+			throw ParseError(s + "Meta char expected.");
+		}
+
+		return NFAGraph(meta);
+	}
 	//其余合法字符
 	else if (Charset::InCharset(ch))
 	{
