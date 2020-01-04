@@ -21,4 +21,5 @@ private:
 	NFAGraph parseCatExpr();
 	NFAGraph parseFactor();
 	NFAGraph parseTerm();
+	NFAGraph parseScope();
 };

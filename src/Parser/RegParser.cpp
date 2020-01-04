@@ -116,6 +116,13 @@ NFAGraph RegParser::parseTerm()
 		read(')');
 		return ng;
 	}
+	//×óÖÐÀ¨ºÅ
+	else if (ch == '[')
+	{
+		NFAGraph ng = parseScope();
+		read(']');
+		return ng;
+	}
 	//×ªÒå×Ö·û
 	else if (ch == '\\')
 	{
@@ -147,4 +154,12 @@ NFAGraph RegParser::parseTerm()
 		s.push_back(ch);
 		throw ParseError(s);
 	}
+}
+
+NFAGraph RegParser::parseScope()
+{
+	char c1 = next();
+	read('-');
+	char c2 = next();
+	return NFAGraph(c1, c2);
 }

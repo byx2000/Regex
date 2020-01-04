@@ -10,6 +10,7 @@ class NFAGraph
 public:
 	NFAGraph();
 	NFAGraph(char ch);
+	NFAGraph(char c1, char c2);
 	std::string toString() const;
 	void concat(NFAGraph& ng);
 	void parallel(NFAGraph& ng);

@@ -1,5 +1,6 @@
 #include "NFAGraph.h"
 #include "../Common/Charset.h"
+#include "../Common/Error.h"
 
 #include <iostream>
 #include <stack>
@@ -27,6 +28,37 @@ NFAGraph::NFAGraph(char ch)
 	else
 	{
 		
+		start->addTransfer(end, ch);
+	}
+}
+
+NFAGraph::NFAGraph(char c1, char c2)
+{
+	start = new State(false);
+	end = new State(true);
+
+	if (c1 > c2)
+	{
+		string s = "Illegal scope: [";
+		s.push_back(c1);
+		s.push_back(',');
+		s.push_back(c2);
+		s.push_back(']');
+		throw ParseError(s);
+	}
+
+	for (char ch = c1; ch <= c2; ++ch)
+	{
+		if (!Charset::InCharset(ch))
+		{
+			string s = "Illegal scope: [";
+			s.push_back(c1);
+			s.push_back(',');
+			s.push_back(c2);
+			s.push_back(']');
+			throw ParseError(s);
+		}
+
 		start->addTransfer(end, ch);
 	}
 }
