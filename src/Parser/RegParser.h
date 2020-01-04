@@ -15,6 +15,7 @@ private:
 
 	char next();
 	char peek();
+	void back();
 	void read(char ch);
 
 	NFAGraph parseExpr();
@@ -22,4 +23,5 @@ private:
 	NFAGraph parseFactor();
 	NFAGraph parseTerm();
 	NFAGraph parseScope();
+	NFAGraph parseChoice();
 };

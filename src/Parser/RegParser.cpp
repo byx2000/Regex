@@ -43,6 +43,14 @@ char RegParser::peek()
 	return input[index];
 }
 
+void RegParser::back()
+{
+	if (index > 0)
+	{
+		index--;
+	}
+}
+
 void RegParser::read(char ch)
 {
 	if (ch != next())
@@ -119,9 +127,21 @@ NFAGraph RegParser::parseTerm()
 	//×óÖÐÀ¨ºÅ
 	else if (ch == '[')
 	{
-		NFAGraph ng = parseScope();
-		read(']');
-		return ng;
+		next();
+		if (peek() == '-')
+		{
+			back();
+			NFAGraph ng = parseScope();
+			read(']');
+			return ng;
+		}
+		else
+		{
+			back();
+			NFAGraph ng = parseChoice();
+			read(']');
+			return ng;
+		}
 	}
 	//×ªÒå×Ö·û
 	else if (ch == '\\')
@@ -162,4 +182,22 @@ NFAGraph RegParser::parseScope()
 	read('-');
 	char c2 = next();
 	return NFAGraph(c1, c2);
+}
+
+NFAGraph RegParser::parseChoice()
+{
+	vector<char> chs;
+	chs.push_back(next());
+
+	while (peek() != ']' && peek() != Charset::End)
+	{
+		chs.push_back(next());
+	}
+
+	if (peek() == Charset::End)
+	{
+		throw ParseError("Unexpected end of expression.");
+	}
+
+	return NFAGraph(chs);
 }

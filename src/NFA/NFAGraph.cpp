@@ -63,6 +63,24 @@ NFAGraph::NFAGraph(char c1, char c2)
 	}
 }
 
+NFAGraph::NFAGraph(const vector<char>& chs)
+{
+	start = new State(false);
+	end = new State(true);
+
+	for (int i = 0; i < (int)chs.size(); ++i)
+	{
+		if (!Charset::InCharset(chs[i]))
+		{
+			string s = "Unexpected character: ";
+			s.push_back(chs[i]);
+			throw ParseError(s);
+		}
+
+		start->addTransfer(end, chs[i]);
+	}
+}
+
 std::string NFAGraph::toString() const
 {
 	string s = "begin: ";
